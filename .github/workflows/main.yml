@@ -26,7 +26,7 @@ jobs:
     - name: Deploy ACI
       uses: alkue-com/acid@main
       with:
-        action: up
+        action: deploy
         gh_repository: ${{ github.repository }}
         gh_pat: ${{ secrets.GH_PAT }}
         subscription: ${{ secrets.SUBSCRIPTION }}
@@ -38,7 +38,7 @@ jobs:
     - name: Delete ACI
       uses: alkue-com/acid@main
       with:
-        action: down
+        action: delete
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
