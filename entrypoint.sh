@@ -19,6 +19,7 @@ labels="${10}"
 image="${11}"
 cpus="${12}"
 memory_gbs="${13}"
+creds="${14}"
 
 ### functions ##################################################################
 
@@ -46,6 +47,20 @@ get_subnet_prefix() {
     --subscription "$subscription" \
     --resource-group "$rg" \
     --query 'addressPrefix' | jq -r
+}
+
+login() {
+  username="$(echo "$creds" | jq -r .clientId)"
+  password="$(echo "$creds" | jq -r .clientSecret)"
+  tenant="$(echo "$creds" | jq -r .tenantId)"
+  az login --service-principal \
+    --username="$username" \
+    --password="$password" \
+    --tenant="$tenant"
+}
+
+logout() {
+  az logout
 }
 
 deploy() {
@@ -83,9 +98,9 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   exit 2
 fi
 
+login
+# shellcheck disable=SC2154
+trap 'status=$?; logout; exit $status' INT TERM QUIT EXIT
+
 output="$($action)"
-status=$?
-
 echo "output=$output" >>"$GITHUB_OUTPUT"
-
-exit "$status"

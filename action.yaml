@@ -45,6 +45,9 @@ inputs:
     description: 'Memory for container in gigabytes'
     required: true
     default: '1.5'
+  creds:
+    description: 'Azure Service Principal JSON object (AZURE_CREDENTIALS)'
+    required: true
 outputs:
   output:
     description: 'Output of Azure CLI'
@@ -65,3 +68,4 @@ runs:
     - ${{ inputs.image }}
     - ${{ inputs.cpus }}
     - ${{ inputs.memory_gbs }}
+    - ${{ inputs.creds }}

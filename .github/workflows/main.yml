@@ -16,13 +16,6 @@ jobs:
     - name: Checkout git repo
       uses: actions/checkout@v4.1.4
 
-    - name: Login via Azure CLI
-      uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
     - name: Deploy ACI
       uses: alkue-com/acid@main
       with:
@@ -34,6 +27,7 @@ jobs:
         aci: ${{ secrets.ACI }}
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
+        creds: $${ secrets.AZURE_CREDENTIALS }}
 
     - name: Delete ACI
       uses: alkue-com/acid@main
@@ -42,3 +36,4 @@ jobs:
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
+        creds: $${ secrets.AZURE_CREDENTIALS }}
