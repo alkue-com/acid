@@ -68,16 +68,16 @@ logout() {
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
   : "${subnet:="$(get_unused_subnet)"}"
-  # shellcheck disable=SC2086 # not escaping env_variables and env_secrets
-  az container create \
+  # eval: not escaping env_variables and env_secrets
+  eval az container create \
     --subscription "$subscription" \
     --resource-group "$rg" \
     --location "$location" \
     --sku Standard \
     --name "$aci" \
     --image "$image" \
-    --environment-variables $env_variables \
-    --secure-environment-variables $env_secrets \
+    --environment-variables "$env_variables" \
+    --secure-environment-variables "$env_secrets" \
     --restart-policy "$restart_policy" \
     --os-type Linux \
     --cpu "$cpus" \
