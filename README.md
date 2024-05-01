@@ -57,4 +57,5 @@ TODO
 
 ## TODO
 
-- `entrypoint.sh`: validate params
+- only private network/Linux is supported
+- `entrypoint.sh`: validate mandatory params
