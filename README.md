@@ -60,5 +60,4 @@ TODO
 
 ## TODO
 
-- ENV vars
-- `entrypoint.sh`: validate mandatory params
+- `entrypoint.sh`: validate mandatory params (delete does not require all)

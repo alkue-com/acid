@@ -20,15 +20,13 @@ jobs:
       uses: alkue-com/acid@main
       with:
         action: deploy
-        gh_repository: ${{ github.repository }}
-        gh_pat: ${{ secrets.GH_PAT }}
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        env: LABELS="azure,dev" NAME="acid"
+        env_variables: LABELS="azure,dev" NAME="acid"
         env_secrets: GH_REPOSITORY=${{ github.repository }} GH_PAT=${{ secrets.GH_PAT }}
 
     - name: Delete ACI
