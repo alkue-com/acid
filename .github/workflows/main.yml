@@ -27,7 +27,7 @@ jobs:
         aci: ${{ secrets.ACI }}
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
-        creds: $${ secrets.CREDS }}
+        creds: ${{ secrets.CREDS }}
 
     - name: Delete ACI
       uses: alkue-com/acid@main
@@ -36,4 +36,4 @@ jobs:
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
-        creds: $${ secrets.CREDS }}
+        creds: ${{ secrets.CREDS }}
