@@ -4,6 +4,7 @@
 
 .cz.toml
 .editorconfig
+.env
 .gitignore
 .pre-commit-config.yaml
 action.yaml
