@@ -50,6 +50,7 @@ get_subnet_prefix() {
 }
 
 login() {
+  echo "acid: Logging in ------------------------------------------------------"
   username="$(echo "$creds" | jq -r .clientId)"
   password="$(echo "$creds" | jq -r .clientSecret)"
   tenant="$(echo "$creds" | jq -r .tenantId)"
@@ -60,10 +61,12 @@ login() {
 }
 
 logout() {
+  echo "acid: Logging out -----------------------------------------------------"
   az logout
 }
 
 deploy() {
+  echo "acid: Deploying -------------------------------------------------------"
   : "${subnet:="$(get_unused_subnet)"}"
   az container create \
     --subscription "$subscription" \
@@ -84,6 +87,7 @@ deploy() {
 }
 
 delete() {
+  echo "acid: Deleting --------------------------------------------------------"
   #: "${subnet:="$(get_used_subnet)"}"
   az container delete --yes \
     --name "$aci" \
