@@ -69,6 +69,7 @@ deploy() {
   echo "acid: Deploying -------------------------------------------------------"
   : "${subnet:="$(get_unused_subnet)"}"
   # eval: not escaping env_variables and env_secrets
+  set -x
   eval az container create \
     --subscription "$subscription" \
     --resource-group "$rg" \
