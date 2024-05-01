@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # shellcheck disable=SC2317
 
-set -e
+set -E
 
 ### inputs #####################################################################
 
@@ -94,16 +94,13 @@ delete() {
 ### main #######################################################################
 
 if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
-  echo "Error: Unknown action: $action. Allowed: deploy, delete."
+  echo "Error: Unknown action: $action. Allowed: deploy/delete."
   exit 2
 fi
 
-echo "$subscription"
-echo "$creds"
-
 login
 # shellcheck disable=SC2154
-trap 'status=$?; logout; exit $status' INT TERM QUIT EXIT
+trap 'status=$?; logout; exit $status' INT TERM QUIT EXIT ERR
 
 "$action"
 #echo "output=$output" >>"$GITHUB_OUTPUT"
