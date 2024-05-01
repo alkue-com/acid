@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2317
 
-set -E
+set -Eo pipefail
 
 ### inputs #####################################################################
 
@@ -99,8 +99,10 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
 fi
 
 login
-# shellcheck disable=SC2154
-trap 'status=$?; logout; exit $status' INT TERM QUIT EXIT ERR
+# shellcheck disable=SC2154  # status is assigned from failing command
+trap 'status=$?; logout; exit $status' INT TERM QUIT ERR
 
 "$action"
+logout
+
 #echo "output=$output" >>"$GITHUB_OUTPUT"
