@@ -68,6 +68,8 @@ logout() {
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
   : "${subnet:="$(get_unused_subnet)"}"
+  echo "$env_variables"
+  echo "$env_secrets"
   az container create \
     --subscription "$subscription" \
     --resource-group "$rg" \
