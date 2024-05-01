@@ -1,6 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-set -eo pipefail
+# shellcheck disable=SC2317
+
+set -e
 
 ### inputs #####################################################################
 
@@ -81,4 +83,9 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   exit 2
 fi
 
-echo "output=$($action)" >>"$GITHUB_OUTPUT"
+output="$($action)"
+status=$?
+
+echo "output=$output" >>"$GITHUB_OUTPUT"
+
+exit "$status"
