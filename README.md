@@ -1,10 +1,15 @@
 # acid 0.1.0
 
-GitHub Action to deploy and delete Azure Container Instances.
+GitHub Action used to deploy and delete one-off Azure Container Instances.
 
-## Setup
+Use:
+- This is for short-running internal workloads, not generic web server deployer.
+- Container gets only private IP. The virtual network and the subnet must exist.
+- Due to private only networking, only Linux Docker workloads are supported.
 
 Azure login with OpenID Connect is not currently supported for this action.
+
+## Setup
 
 Create a service principal in Azure:
 
@@ -14,7 +19,7 @@ Create a service principal in Azure:
       --scopes /subscriptions/{subscription_id}/resourceGroups/{rg_name} \
       --json-auth
 
-Add GitHub Actions Secret `AZURE_CREDENTIALS` with JSON object as the content.
+Add responded JSON object as a GitHub Actions Secret `AZURE_CREDENTIALS`.
 
 ## Usage
 
@@ -48,10 +53,6 @@ with:
 ```
 
 ## Inputs
-
-TODO
-
-## Outputs
 
 TODO
 

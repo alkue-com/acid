@@ -1,11 +1,11 @@
 name: 'acid'
-description: 'Deploy and delete Azure Container Instances.'
+description: 'Azure Container Instances Deploy/Delete.'
 inputs:
   action:
     description: 'deploy/delete'
     required: true
   gh_repository:
-    description: 'GitHub orgname/reponame where to create runner'
+    description: 'GitHub repository where to add a runner (orgname/reponame)'
     required: true
   gh_pat:
     description: 'GitHub Personal Access Token'
@@ -34,23 +34,20 @@ inputs:
     required: true
     default: 'azure'
   image:
-    description: 'Existing Docker image reference (https://hostname/repo:tag)'
+    description: 'Existing Docker image reference (fqdn/repository:tag)'
     required: true
     default: 'ghcr.io/alkue-com/runner:latest'
   cpus:
-    description: 'Number of cores for container'
+    description: 'Number of CPU cores for container'
     required: true
     default: '1'
   memory_gbs:
-    description: 'Memory for container in gigabytes'
+    description: 'Memory (in gigabytes) for container'
     required: true
     default: '1.5'
   creds:
-    description: 'Azure Service Principal JSON object (AZURE_CREDENTIALS)'
+    description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
     required: true
-outputs:
-  output:
-    description: 'Output of Azure CLI'
 runs:
   using: 'docker'
   image: 'Dockerfile'

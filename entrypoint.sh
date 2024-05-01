@@ -108,5 +108,3 @@ trap 'status=$?; logout; exit $status' INT TERM QUIT ERR
 
 "$action"
 logout
-
-#echo "output=$output" >>"$GITHUB_OUTPUT"
