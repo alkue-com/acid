@@ -1,0 +1,7 @@
+[tool.commitizen]
+bump_message = "chore: Release $new_version"
+tag_format = "$version"
+version = "0.1.0"
+version_files = [
+    "README.md"
+]

@@ -1,0 +1,9 @@
+# Usage:
+#   checkov -d .
+
+enable-secret-scan-all-files: true
+framework:
+  - all
+skip-path:
+  - .git
+quiet: true

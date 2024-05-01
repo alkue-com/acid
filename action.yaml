@@ -1,0 +1,67 @@
+name: 'acid'
+description: 'Deploy and delete Azure Container Instances.'
+inputs:
+  action:
+    description: 'up/down'
+    required: true
+  gh_repository:
+    description: 'GitHub orgname/reponame where to create runner'
+    required: true
+  gh_pat:
+    description: 'GitHub Personal Access Token'
+    required: true
+  location:
+    description: 'Azure region'
+    required: true
+    default: 'westeurope'
+  subscription:
+    description: 'Existing Azure subscription name'
+    required: true
+  rg:
+    description: 'Existing Azure resource group name'
+    required: true
+  aci:
+    description: 'Name of the Azure Container Instances to create'
+    required: true
+  vnet:
+    description: 'Existing Azure virtual network name'
+    required: true
+  subnet:
+    description: 'Existing Azure virtual network subnet name'
+    required: true
+  labels:
+    description: 'Labels to add to the runner'
+    required: true
+    default: 'azure'
+  image:
+    description: 'Existing Docker image reference (https://hostname/repo:tag)'
+    required: true
+    default: 'ghcr.io/alkue-com/runner:latest'
+  cpu:
+    description: 'Number of cores for container'
+    required: true
+    default: '1'
+  memory_gbs:
+    description: 'Memory for container in gigabytes'
+    required: true
+    default: '1.5'
+outputs:
+  finished_at:
+    description: 'ISO 8601 timestamp when action finished at'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.action }}
+    - ${{ inputs.gh_repository }}
+    - ${{ inputs.gh_pat }}
+    - ${{ inputs.location }}
+    - ${{ inputs.subscription }}
+    - ${{ inputs.rg }}
+    - ${{ inputs.aci }}
+    - ${{ inputs.vnet }}
+    - ${{ inputs.subnet }}
+    - ${{ inputs.labels }}
+    - ${{ inputs.image }}
+    - ${{ inputs.cpus }}
+    - ${{ inputs.memory_gbs }}
