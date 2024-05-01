@@ -2,7 +2,7 @@ name: 'acid'
 description: 'Deploy and delete Azure Container Instances.'
 inputs:
   action:
-    description: 'up/down'
+    description: 'deploy/delete'
     required: true
   gh_repository:
     description: 'GitHub orgname/reponame where to create runner'
@@ -46,8 +46,8 @@ inputs:
     required: true
     default: '1.5'
 outputs:
-  finished_at:
-    description: 'ISO 8601 timestamp when action finished at'
+  output:
+    description: 'Output of Azure CLI'
 runs:
   using: 'docker'
   image: 'Dockerfile'

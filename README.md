@@ -2,46 +2,43 @@
 
 GitHub Action to deploy and delete Azure Container Instances.
 
+## Usage
+
+### Deploy
+
+```yaml
+uses: alkue-com/acid@main
+with:
+  action: up
+  gh_repository: alkue-com/alkue
+  gh_pat: ${{ secrets.GH_PAT }}
+  location: westeurope
+  subscription: alkue
+  rg: alkue-dev
+  aci: alkue-dev-runner
+  vnet: alkue-dev
+  subnet: ${{ secrets.SUBNET }}
+```
+
+### Delete
+
+```yaml
+uses: alkue-com/acid@main
+with:
+  action: down
+  subscription: alkue
+  rg: alkue-dev
+  aci: alkue-dev-runner
+```
+
 ## Inputs
 
-### `action`
-
-**Required** `up` to deploy, `down` to delete.
-
-### `configfile`
-
-**Required** File representing the target Azure environment.
-
-```sh
-SUBSCRIPTION="alkue"
-PREFIX="alkue-dev"
-APP="runner"
-LOCATION="westeurope"
-GH_REPOSITORY="alkue-com/alkue"
-```
+TODO
 
 ## Outputs
 
-## `finished_at`
+TODO
 
-ISO 8601 timestamp when finished at.
+## TODO
 
-## Example usage
-
-Deploy:
-
-```sh
-uses: alkue/acid@main
-with:
-  action: up
-  envfile: dev.env
-```
-
-Delete:
-
-```sh
-uses: alkue/acid@main
-with:
-  action: down
-  envfile: dev.env
-```
+- `entrypoint.sh`: validate params

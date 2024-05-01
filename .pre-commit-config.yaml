@@ -43,11 +43,6 @@ repos:
     - id: shellcheck
     - id: shfmt
 
-- repo: https://github.com/codespell-project/codespell
-  rev: v2.2.6
-  hooks:
-  - id: codespell
-
 - repo: https://github.com/commitizen-tools/commitizen
   rev: v3.20.0
   hooks:
