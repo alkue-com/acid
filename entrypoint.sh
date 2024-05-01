@@ -99,6 +99,8 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   exit 2
 fi
 
+echo "$subscription"
+
 login
 # shellcheck disable=SC2154
 trap 'status=$?; logout; exit $status' INT TERM QUIT EXIT
