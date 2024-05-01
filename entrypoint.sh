@@ -6,20 +6,20 @@ set -e
 
 ### inputs #####################################################################
 
-action="$1"
-gh_repository="$2"
-gh_pat="$3"
-location="$4"
-subscription="$5"
-rg="$6"
-aci="$7"
-vnet="$8"
-subnet="$9"
-labels="${10}"
-image="${11}"
-cpus="${12}"
-memory_gbs="${13}"
-creds="${14}"
+action="$INPUT_ACTION"
+gh_repository="$INPUT_GH_REPOSITORY"
+gh_pat="$INPUT_GH_PAT"
+location="$INPUT_LOCATION"
+subscription="$INPUT_SUBSCRIPTION"
+rg="$INPUT_RG"
+aci="$INPUT_ACI"
+vnet="$INPUT_VNET"
+subnet="$INPUT_SUBNET"
+labels="$INPUT_LABELS"
+image="$INPUT_IMAGE"
+cpus="$INPUT_CPUS"
+memory_gbs="$INPUT_MEMORY_GBS"
+creds="$INPUT_CREDS"
 
 ### functions ##################################################################
 
