@@ -105,5 +105,5 @@ login
 # shellcheck disable=SC2154
 trap 'status=$?; logout; exit $status' INT TERM QUIT EXIT
 
-#output="$($action)"
+"$(action)"
 #echo "output=$output" >>"$GITHUB_OUTPUT"
