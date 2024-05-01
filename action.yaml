@@ -37,7 +37,7 @@ inputs:
     description: 'Existing Docker image reference (https://hostname/repo:tag)'
     required: true
     default: 'ghcr.io/alkue-com/runner:latest'
-  cpu:
+  cpus:
     description: 'Number of cores for container'
     required: true
     default: '1'
