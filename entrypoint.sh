@@ -50,7 +50,6 @@ get_subnet_prefix() {
 }
 
 login() {
-  echo "$creds"
   username="$(echo "$creds" | jq -r .clientId)"
   password="$(echo "$creds" | jq -r .clientSecret)"
   tenant="$(echo "$creds" | jq -r .tenantId)"
@@ -98,8 +97,6 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   echo "Error: Unknown action: $action. Allowed: deploy, delete."
   exit 2
 fi
-
-echo "$subscription"
 
 login
 # shellcheck disable=SC2154
