@@ -50,6 +50,7 @@ get_subnet_prefix() {
 }
 
 login() {
+  echo "$creds"
   username="$(echo "$creds" | jq -r .clientId)"
   password="$(echo "$creds" | jq -r .clientSecret)"
   tenant="$(echo "$creds" | jq -r .tenantId)"
