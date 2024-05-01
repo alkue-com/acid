@@ -56,5 +56,4 @@ with:
 
 ## TODO
 
-- fix escaping env_variables and env_secrets
 - `entrypoint.sh`: validate mandatory params (delete does not require all)
