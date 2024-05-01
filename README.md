@@ -2,12 +2,14 @@
 
 GitHub Action used to deploy and delete one-off Azure Container Instances.
 
-Use:
-- This is for short-running internal workloads, not generic web server deployer.
-- Container gets only private IP. The virtual network and the subnet must exist.
-- Due to private only networking, only Linux Docker workloads are supported.
+Uses Azure CLI, login with OpenID Connect is supported for this action.
 
-Azure login with OpenID Connect is not currently supported for this action.
+Use:
+- This is for short-running internal workloads, not a generic server deployer.
+- Container gets only private IP thus only Linux workloads are supported by ACI.
+- The resource group, virtual network and an unused subnet must already exist.
+
+If subnet is not given, the first unused subnet in the virtual network is used.
 
 ## Setup
 
@@ -58,5 +60,5 @@ TODO
 
 ## TODO
 
-- only private network/Linux is supported
+- ENV vars
 - `entrypoint.sh`: validate mandatory params

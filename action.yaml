@@ -23,6 +23,14 @@ inputs:
   aci:
     description: 'Name of the Azure Container Instances to create'
     required: true
+  image:
+    description: 'Existing Docker image reference (fqdn/repository:tag)'
+    required: true
+    default: 'ghcr.io/alkue-com/runner:latest'
+  env_variables:
+    description: 'Environment variables for container'
+  env_secrets:
+    description: 'Secret environment variables for container'
   vnet:
     description: 'Existing Azure virtual network name'
     required: true
@@ -33,10 +41,6 @@ inputs:
     description: 'Labels to add to the runner'
     required: true
     default: 'azure'
-  image:
-    description: 'Existing Docker image reference (fqdn/repository:tag)'
-    required: true
-    default: 'ghcr.io/alkue-com/runner:latest'
   cpus:
     description: 'Number of CPU cores for container'
     required: true
@@ -48,6 +52,7 @@ inputs:
   creds:
     description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
     required: true
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -59,10 +64,12 @@ runs:
     - ${{ inputs.subscription }}
     - ${{ inputs.rg }}
     - ${{ inputs.aci }}
+    - ${{ inputs.image }}
+    - ${{ inputs.env_variables }}
+    - ${{ inputs.env_secrets }}
     - ${{ inputs.vnet }}
     - ${{ inputs.subnet }}
     - ${{ inputs.labels }}
-    - ${{ inputs.image }}
     - ${{ inputs.cpus }}
     - ${{ inputs.memory_gbs }}
     - ${{ inputs.creds }}

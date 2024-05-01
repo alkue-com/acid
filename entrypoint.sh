@@ -7,16 +7,15 @@ set -Eo pipefail
 ### inputs #####################################################################
 
 action="$INPUT_ACTION"
-gh_repository="$INPUT_GH_REPOSITORY"
-gh_pat="$INPUT_GH_PAT"
 location="$INPUT_LOCATION"
 subscription="$INPUT_SUBSCRIPTION"
 rg="$INPUT_RG"
 aci="$INPUT_ACI"
+image="$INPUT_IMAGE"
+env_variables="$INPUT_ENV_VARIABLES"
+env_secrets="$INPUT_ENV_SECRETS"
 vnet="$INPUT_VNET"
 subnet="$INPUT_SUBNET"
-labels="$INPUT_LABELS"
-image="$INPUT_IMAGE"
 cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 creds="$INPUT_CREDS"
@@ -75,8 +74,8 @@ deploy() {
     --sku Standard \
     --name "$aci" \
     --image "$image" \
-    --environment-variables LABELS="$labels" NAME="$aci" \
-    --secure-environment-variables GH_REPOSITORY="$gh_repository" GH_PAT="$gh_pat" \
+    --environment-variables "$env_variables" \
+    --secure-environment-variables "$env_secrets" \
     --restart-policy OnFailure \
     --os-type Linux \
     --cpu "$cpus" \
