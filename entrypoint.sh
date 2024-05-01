@@ -18,6 +18,7 @@ vnet="$INPUT_VNET"
 subnet="$INPUT_SUBNET"
 cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
+restart_policy="$INPUT_RESTART_POLICY"
 creds="$INPUT_CREDS"
 
 ### functions ##################################################################
@@ -76,7 +77,7 @@ deploy() {
     --image "$image" \
     --environment-variables "$env_variables" \
     --secure-environment-variables "$env_secrets" \
-    --restart-policy OnFailure \
+    --restart-policy "$restart_policy" \
     --os-type Linux \
     --cpu "$cpus" \
     --memory "$memory_gbs" \

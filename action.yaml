@@ -20,7 +20,6 @@ inputs:
   image:
     description: 'Existing Docker image reference (fqdn/repository:tag)'
     required: true
-    default: 'ghcr.io/alkue-com/runner:latest'
   env_variables:
     description: 'Environment variables for container'
   env_secrets:
@@ -39,6 +38,9 @@ inputs:
     description: 'Memory (in gigabytes) for container'
     required: true
     default: '1.5'
+  restart_policy:
+    description: 'Container restart policy'
+    default: 'OnFailure'
   creds:
     description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
     required: true

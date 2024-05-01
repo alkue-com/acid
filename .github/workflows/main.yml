@@ -23,11 +23,12 @@ jobs:
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
+        image: ghcr.io/alkue-com/runner:latest
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        env_variables: LABELS="azure,dev" NAME="acid"
-        env_secrets: GH_REPOSITORY=${{ github.repository }} GH_PAT=${{ secrets.GH_PAT }}
+        env_variables: LABELS='azure,dev' NAME='acid'
+        env_secrets: GH_REPOSITORY='${{ github.repository }}' GH_PAT='${{ secrets.GH_PAT }}'
 
     - name: Delete ACI
       uses: alkue-com/acid@main
