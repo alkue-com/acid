@@ -55,7 +55,7 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Run acid
-      run: acid ${{ inputs.az_cli_args }}
+      run: acid ${{ inputs.az_args }}
       shell: bash
       env:
         INPUT_ACTION: ${{ inputs.action }}
