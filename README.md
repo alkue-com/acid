@@ -8,14 +8,14 @@ GitHub runner must have `bash` and `az` installed (GitHub hosted runners do).
 
 ## Setup
 
-In the repository, add the following as GitHub Actions secrets:
+In the GitHub repository, create the following as GitHub Actions secrets:
 
 - `SUBSCRIPTION` - name or id, subscription must exist
 - `LOCATION` - e.g. `westeurope`
 - `RG` - name, resource group must exist
 - `ACI` - name, target to deploy/delete
-- `VNET` - name or id - created if not exists, use `az_cli_args` to set prefix
-- `SUBNET` - name or id - created if not exists, use `az_cli_args` to set prefix
+- `VNET` - name or id - created if does not exist, use `az_args` to set CIDR
+- `SUBNET` - name or id - created if does not exist, use `az_args` to set CIDR
 
 Use [azure/login](https://github.com/Azure/login) action in pipeline to login
 to Azure before using this action.
@@ -42,7 +42,7 @@ Optional arguments:
 - `cpus` - defaults to 1 CPU core
 - `memory_gbs` - defaults to 1.5GB
 - `restart_policy` - defaults to OnFailure
-- `az_cli_args` - any Azure CLI arguments (may extend or override previous)
+- `az_args` - any Azure CLI arguments (may extend or override previous)
 
 See `az container create --help` for detailed description on arguments.
 
@@ -72,7 +72,7 @@ Required arguments:
 
 Optional arguments:
 
-- `az_cli_args` - any Azure CLI arguments (may extend or override previous)
+- `az_args` - any Azure CLI arguments (may extend or override previous)
 
 See `az container delete --help` for detailed description on arguments.
 

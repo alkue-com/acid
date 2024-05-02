@@ -38,7 +38,7 @@ inputs:
   restart_policy:
     description: 'Container restart policy: Always, Never, OnFailure.'
     default: 'OnFailure'
-  az_cli_args:
+  az_args:
     description: 'Azure CLI arguments, possibly overriding previous arguments.'
 
 outputs:

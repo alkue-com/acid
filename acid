@@ -22,7 +22,7 @@ memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
 
 # deploy action extra args
-azure_cli_args="$*"
+az_args="$*"
 
 ### functions ##################################################################
 
@@ -59,7 +59,7 @@ deploy() {
     --ip-address Private \
     --vnet "$vnet" \
     --subnet "$subnet" \
-    "$azure_cli_args"
+    "$az_args"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
@@ -77,7 +77,7 @@ delete() {
     --name "$aci" \
     --subscription "$subscription" \
     --resource-group "$rg" \
-    "$azure_cli_args"
+    "$az_args"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
@@ -89,7 +89,8 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   exit 1
 fi
 
-trap 'echo "acid: az command failed"; exit $?' SIGTERM SIGINT SIGQUIT ERR
+# shellcheck disable=SC2154  # exits with the status of the failed command
+trap 'ec=$?; echo "acid: az failed"; exit $ec' SIGTERM SIGINT SIGQUIT ERR
 
 "$action"
 
