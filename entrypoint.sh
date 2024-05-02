@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# shellcheck disable=SC2317
-
 set -Eo pipefail
 
 ### inputs #####################################################################
@@ -12,27 +10,18 @@ subscription="$INPUT_SUBSCRIPTION"
 rg="$INPUT_RG"
 aci="$INPUT_ACI"
 image="$INPUT_IMAGE"
-env_variables="$INPUT_ENV_VARIABLES"
-env_secrets="$INPUT_ENV_SECRETS"
 vnet="$INPUT_VNET"
 subnet="$INPUT_SUBNET"
+creds="$INPUT_CREDS"
+env_variables="$INPUT_ENV_VARIABLES"
+env_secrets="$INPUT_ENV_SECRETS"
 cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
-creds="$INPUT_CREDS"
 
 ### functions ##################################################################
 
-get_unused_subnet() {
-  # shellcheck disable=SC2016  # JMESPath requires backticks
-  az network vnet subnet list \
-    --vnet-name "$vnet" \
-    --subscription "$subscription" \
-    --resource-group "$rg" \
-    --query '[?delegations == `[]`].name | [0]' | jq -r
-}
-
-get_used_subnet() {
+_get_used_subnet() {
   az container show \
     --name "$aci" \
     --subscription "$subscription" \
@@ -54,11 +43,6 @@ login() {
     --username="$username" \
     --password="$password" \
     --tenant="$tenant"
-}
-
-logout() {
-  echo "acid: Logging out -----------------------------------------------------"
-  az logout
 }
 
 deploy() {
@@ -97,7 +81,7 @@ delete() {
     exit 1
   fi
 
-  [ -z "$subnet" ] && subnet="$(get_used_subnet)"
+  [ -z "$subnet" ] && subnet="$(_get_used_subnet)"
 
   az container delete --yes \
     --name "$aci" \
@@ -105,6 +89,11 @@ delete() {
     --resource-group "$rg"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
+}
+
+logout() {
+  echo "acid: Logging out -----------------------------------------------------"
+  az logout
 }
 
 ### main #######################################################################
