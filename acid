@@ -20,7 +20,6 @@ env_secrets="$INPUT_ENV_SECRETS"
 cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
-ports="$INPUT_PORTS"
 assign_identity="$INPUT_ASSIGN_IDENTITY"
 scope="$INPUT_SCOPE"
 role="$INPUT_ROLE"
@@ -64,7 +63,6 @@ deploy() {
     --ip-address Private \
     --vnet "$vnet" \
     --subnet "$subnet" \
-    --ports "$ports" \
     --assign-identity "$assign_identity" \
     --scope "$scope" \
     --role "$role" \
