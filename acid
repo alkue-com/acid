@@ -4,6 +4,7 @@ set -Eo pipefail
 
 ### inputs #####################################################################
 
+# required
 action="$INPUT_ACTION"
 location="$INPUT_LOCATION"
 subscription="$INPUT_SUBSCRIPTION"
@@ -12,11 +13,21 @@ aci="$INPUT_ACI"
 image="$INPUT_IMAGE"
 vnet="$INPUT_VNET"
 subnet="$INPUT_SUBNET"
+
+# optional
 env_variables="$INPUT_ENV_VARIABLES"
 env_secrets="$INPUT_ENV_SECRETS"
 cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
+ports="$INPUT_PORTS"
+assign_identity="$INPUT_ASSIGN_IDENTITY"
+scope="$INPUT_SCOPE"
+role="$INPUT_ROLE"
+acr_identity="$INPUT_ACR_IDENTITY"
+registry_login_server="$INPUT_REGISTRY_LOGIN_SERVER"
+registry_login_username="$INPUT_REGISTRY_LOGIN_USERNAME"
+registry_login_password="$INPUT_REGISTRY_LOGIN_PASSWORD"
 
 ### functions ##################################################################
 
@@ -52,7 +63,15 @@ deploy() {
     --memory "$memory_gbs" \
     --ip-address Private \
     --vnet "$vnet" \
-    --subnet "$subnet"
+    --subnet "$subnet" \
+    --ports "$ports" \
+    --assign-identity "$assign_identity" \
+    --scope "$scope" \
+    --role "$role" \
+    --acr-identity "$acr_identity" \
+    --registry-login-server "$registry_login_server" \
+    --registry-login-username "$registry_login_username" \
+    --registry-login-password "$registry_login_password"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }

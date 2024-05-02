@@ -5,39 +5,57 @@ inputs:
     description: 'deploy/delete'
     required: true
   subscription:
-    description: 'Existing Azure subscription name'
+    description: 'Existing Azure subscription name or id.'
     required: true
   location:
-    description: 'Azure region'
+    description: 'Azure region (e.g. westeurope).'
     required: true
   rg:
-    description: 'Existing Azure resource group name'
+    description: 'Existing Azure resource group name.'
     required: true
   aci:
-    description: 'Name of the Azure Container Instances to create'
+    description: 'Name of the Azure Container Instances to create.'
     required: true
   image:
-    description: 'Existing Docker image reference (fqdn/repository:tag)'
+    description: 'Existing Docker image reference (fqdn/repository:tag).'
     required: true
   vnet:
-    description: 'Existing Azure virtual network name'
+    description: 'Existing Azure virtual network name or id.'
     required: true
   subnet:
-    description: 'Existing Azure virtual network subnet name'
+    description: 'Existing Azure virtual network subnet name or id.'
     required: true
   env_variables:
-    description: 'Environment variables for container'
+    description: 'Environment variables for container. Space-separated list.'
   env_secrets:
-    description: 'Secret environment variables for container'
+    description: 'Secret variables for container. Space-separated list.'
   cpus:
-    description: 'Number of CPU cores for container'
+    description: 'The required number of CPU cores of the container.'
     default: '1'
   memory_gbs:
-    description: 'Memory (in gigabytes) for container'
+    description: 'The required memory of the container in GB.'
     default: '1.5'
   restart_policy:
-    description: 'Container restart policy'
+    description: 'Container restart policy: Always, Never, OnFailure.'
     default: 'OnFailure'
+  ports:
+    description: 'A list of ports to open. Space-separated list of ports.'
+    default: ''
+  assign_identity:
+    description: 'Space-separated list of assigned identities.'
+  scope:
+    description: 'Scope that the system assigned identity can access.'
+  role:
+    description: 'Role name the system assigned identity will have.'
+    default: 'Contributor'
+  acr_identity:
+    description: 'The identity with access to the container registry.'
+  registry_login_server:
+    description: 'The container image registry login server.'
+  registry_username:
+    description: 'The username to log in container image registry server.'
+  registry_password:
+    description: 'The password to log in container image registry server.'
 
 outputs:
   subnet:
@@ -53,7 +71,7 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Run acid
-      run: acid.sh
+      run: acid
       shell: bash
       env:
         INPUT_ACTION: ${{ inputs.action }}

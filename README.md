@@ -2,32 +2,38 @@
 
 GitHub Action to deploy and delete one-off Azure Container Instances.
 
-Purpose:
-- This is for short-running internal workloads, not a web server deployer.
-- Container gets only private IP thus only Linux workloads are supported by ACI.
-- A resource group, a virtual network and an unused subnet must already exist.
+This is for provisioning/deprovisioning short-running *internal* workloads.
+
+Note: Only Linux containers are supported for private networking by ACI.
+
+Requirements:
+- GitHub runner must have `bash` and `az` installed (GitHub hosted runners do).
+- The resource group, the virtual network and the subnet must already exist.
+- Runner must be
 
 ## Setup
 
-In the target repository, add the following as GitHub Actions secrets:
+In the repository, add the following as GitHub Actions secrets:
 
-- `SUBSCRIPTION` (name, must exist)
+- `SUBSCRIPTION` (name or id, must exist)
 - `LOCATION` (e.g. `westeurope`)
 - `RG` (name, must exist)
-- `ACI` (name)
-- `VNET` (name, must exist)
-- `SUBNET` (name, must exist)
+- `ACI` (name, to be created)
+- `VNET` (name or id, must exist)
+- `SUBNET` (name or id, must exist)
 
 Use [azure/login](https://github.com/Azure/login) action in your pipeline
 to login to Azure your preferred way before using this action.
 
 ## Inputs
 
+See `az container create --help` for detailed description on arguments.
+
 ### Deploy
 
 Required arguments:
 
-- `action`
+- `action`: deploy
 - `subscription`
 - `location`
 - `rg`
@@ -38,11 +44,19 @@ Required arguments:
 
 Optional arguments:
 
-- `env_variables`
-- `env_secrets`
+- `env_variables` (Space-separated list)
+- `env_secrets` (Space-separated list)
 - `cpus`
 - `memory_gbs`
-- `restart_policy`
+- `restart_policy` (Always, Never, OnFailure, defaults to OnFailure)
+- `ports` (Space-separated list of ports to open, defaults to none)
+- `assign_identity` (Set managed identity of ACI, defaults to system-assigned)
+- `scope` (Add scope for that managed identity)
+- `role` (Assign role for that scope, defaults to Contributor)
+- `acr_identity` (Managed identity with access to pull from the ACR, if used)
+- `registry_login_server`
+- `registry_login_username`
+- `registry_login_password`
 
 Example:
 
@@ -63,7 +77,7 @@ with:
 
 Required arguments:
 
-- `action`
+- `action`: delete
 - `subscription`
 - `rg`
 - `aci`
