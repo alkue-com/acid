@@ -111,7 +111,7 @@ delete() {
 
 if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   echo "Error: Unknown action: $action. Allowed: deploy/delete."
-  exit 2
+  exit 1
 fi
 
 login

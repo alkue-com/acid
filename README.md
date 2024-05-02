@@ -106,7 +106,7 @@ Example:
     steps:
     - name: Deploy ACI
       id: deploy
-      uses: alkue-com/acid@main
+      uses: alkue-com/acid@0.1.0
       with:
         action: deploy
         ...
@@ -123,7 +123,7 @@ Example:
     steps:
     - name: Delete ACI
       id: delete
-      uses: alkue-com/acid@main
+      uses: alkue-com/acid@0.1.0
       with:
         action: delete
         ...
