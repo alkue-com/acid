@@ -15,12 +15,12 @@ Requirements:
 
 In the repository, add the following as GitHub Actions secrets:
 
-- `SUBSCRIPTION` (name or id, must exist)
-- `LOCATION` (e.g. `westeurope`)
-- `RG` (name, must exist)
-- `ACI` (name, to be created)
-- `VNET` (name or id, must exist)
-- `SUBNET` (name or id, must exist)
+- `SUBSCRIPTION` - name or id, must exist
+- `LOCATION` - e.g. `westeurope`
+- `RG` - resource group name, must exist
+- `ACI` - name, service to be created/deleted
+- `VNET` - name or id - created if not exists, use `az_cli_args` to set prefix
+- `SUBNET` - name or id - created if not exists, use `az_cli_args` to set prefix
 
 Use [azure/login](https://github.com/Azure/login) action in your pipeline
 to login to Azure your preferred way before using this action.
@@ -33,7 +33,7 @@ See `az container create --help` for detailed description on arguments.
 
 Required arguments:
 
-- `action`: deploy
+- `action: deploy`
 - `subscription`
 - `location`
 - `rg`
@@ -44,11 +44,12 @@ Required arguments:
 
 Optional arguments:
 
-- `env_variables` (Space-separated list)
-- `env_secrets` (Space-separated list)
-- `cpus`
-- `memory_gbs`
-- `restart_policy` (Always, Never, OnFailure, defaults to OnFailure)
+- `env_variables` - space-separated list (e.g. `ENV1=VALUE1 ENV2=VALUE2`)
+- `env_secrets` - space-separated list (e.g. `KEY=${{secrets.KEY1}}) KEY2=...`)
+- `cpus` - defaults to 1 CPU core
+- `memory_gbs` - defaults to 1.5GB
+- `restart_policy` - defaults to OnFailure
+- `az_cli_args` - any `az container create` args
 
 Example:
 
@@ -69,10 +70,14 @@ with:
 
 Required arguments:
 
-- `action`: delete
+- `action: delete`
 - `subscription`
 - `rg`
 - `aci`
+
+Optional arguments:
+
+- `az_cli_args` - any `az container delete` args
 
 Example:
 

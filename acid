@@ -42,8 +42,6 @@ deploy() {
     exit 1
   fi
 
-  set -x
-
   # eval: not escaping env_variables and env_secrets
   eval az container create \
     --subscription "$subscription" \
@@ -78,7 +76,8 @@ delete() {
   az container delete --yes \
     --name "$aci" \
     --subscription "$subscription" \
-    --resource-group "$rg"
+    --resource-group "$rg" \
+    "$azure_cli_args"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
@@ -90,4 +89,8 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   exit 1
 fi
 
+trap 'echo "acid: az command failed"; exit $?' SIGTERM SIGINT SIGQUIT ERR
+
 "$action"
+
+echo "acid: finished successfully 🫠"

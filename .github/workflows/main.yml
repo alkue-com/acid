@@ -32,7 +32,7 @@ jobs:
         image: docker.io/nginx:latest
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
-        env_variables: LABELS=azure,🫠 NAME=hello
+        env_variables: LABELS=azure,acid NAME=hello
         env_secrets: REPOSITORY=${{ github.repository }}
         az_cli_args: --ports 80 8080 --assign-identity
 

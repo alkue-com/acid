@@ -39,7 +39,7 @@ inputs:
     description: 'Container restart policy: Always, Never, OnFailure.'
     default: 'OnFailure'
   az_cli_args:
-    description: 'Azure CLI command line arguments'
+    description: 'Azure CLI arguments, possibly overriding previous arguments.'
 
 outputs:
   subnet:
