@@ -21,6 +21,9 @@ cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
 
+# deploy action extra args
+azure_cli_args="$*"
+
 ### functions ##################################################################
 
 _get_used_subnet() {
@@ -58,7 +61,7 @@ deploy() {
     --ip-address Private \
     --vnet "$vnet" \
     --subnet "$subnet" \
-    "$*"
+    "$azure_cli_args"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
