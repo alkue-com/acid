@@ -34,7 +34,7 @@ jobs:
         subnet: ${{ secrets.SUBNET }}
         env_variables: LABELS=azure,🫠 NAME=hello
         env_secrets: REPOSITORY=${{ github.repository }}
-        az_cli_args: --ports 80,8080 --assign-identity
+        az_cli_args: --ports 80 8080 --assign-identity
 
     - name: Output subnet ACI was deployed to
       run: echo ${{ steps.deploy.outputs.subnet }}
