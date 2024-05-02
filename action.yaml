@@ -53,7 +53,7 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Run acid
-      run: entrypoint.sh
+      run: acid.sh
       shell: bash
       env:
         INPUT_ACTION: ${{ inputs.action }}
