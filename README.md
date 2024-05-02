@@ -1,4 +1,4 @@
-# acid 1.0.0
+# acid 1.1.0
 
 GitHub Action to deploy and delete one-off Azure Container Instances.
 
@@ -56,7 +56,7 @@ Optional arguments:
 Example:
 
 ```yaml
-uses: alkue-com/acid@1.0.0
+uses: alkue-com/acid@1.1.0
 with:
   action: deploy
   subscription: ${{ secrets.SUBSCRIPTION }}
@@ -82,7 +82,7 @@ Required arguments:
 Example:
 
 ```yaml
-uses: alkue-com/acid@1.0.0
+uses: alkue-com/acid@1.1.0
 with:
   action: delete
   subscription: ${{ secrets.SUBSCRIPTION }}
@@ -105,7 +105,7 @@ Example:
     steps:
     - name: Deploy ACI
       id: deploy
-      uses: alkue-com/acid@1.0.0
+      uses: alkue-com/acid@1.1.0
       with:
         action: deploy
         ...
@@ -122,7 +122,7 @@ Example:
     steps:
     - name: Delete ACI
       id: delete
-      uses: alkue-com/acid@1.0.0
+      uses: alkue-com/acid@1.1.0
       with:
         action: delete
         ...
