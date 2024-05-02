@@ -38,21 +38,24 @@ inputs:
   restart_policy:
     description: 'Container restart policy: Always, Never, OnFailure.'
     default: 'OnFailure'
-  assign_identity:
-    description: 'Space-separated list of assigned identities.'
-  scope:
-    description: 'Scope that the system assigned identity can access.'
-  role:
-    description: 'Role name the system assigned identity will have.'
-    default: 'Contributor'
-  acr_identity:
-    description: 'The identity with access to the container registry.'
-  registry_login_server:
-    description: 'The container image registry login server.'
-  registry_username:
-    description: 'The username to log in container image registry server.'
-  registry_password:
-    description: 'The password to log in container image registry server.'
+  #ports:
+  #  description: 'A list of ports to open. Space-separated list of ports.'
+  #  default: '80'
+  #assign_identity:
+  #  description: 'Space-separated list of assigned identities.'
+  #scope:
+  #  description: 'Scope that the system assigned identity can access.'
+  #role:
+  #  description: 'Role name the system assigned identity will have.'
+  #  default: 'Contributor'
+  #acr_identity:
+  #  description: 'The identity with access to the container registry.'
+  #registry_login_server:
+  #  description: 'The container image registry login server.'
+  #registry_username:
+  #  description: 'The username to log in container image registry server.'
+  #registry_password:
+  #  description: 'The password to log in container image registry server.'
 
 outputs:
   subnet:

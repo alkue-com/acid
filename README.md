@@ -2,14 +2,14 @@
 
 GitHub Action to deploy and delete one-off Azure Container Instances.
 
-This is for provisioning/deprovisioning short-running *internal* workloads.
+This is for provisioning/deprovisioning workloads in private network.
 
 Note: Only Linux containers are supported for private networking by ACI.
 
 Requirements:
 - GitHub runner must have `bash` and `az` installed (GitHub hosted runners do).
 - The resource group, the virtual network and the subnet must already exist.
-- Runner must be
+- Docker image must be publicly available
 
 ## Setup
 
@@ -49,14 +49,6 @@ Optional arguments:
 - `cpus`
 - `memory_gbs`
 - `restart_policy` (Always, Never, OnFailure, defaults to OnFailure)
-- `ports` (Space-separated list of ports to open, defaults to 80)
-- `assign_identity` (Set managed identity of ACI, defaults to system-assigned)
-- `scope` (Add scope for that managed identity)
-- `role` (Assign role for that scope, defaults to Contributor)
-- `acr_identity` (Managed identity with access to pull from the ACR, if used)
-- `registry_login_server`
-- `registry_login_username`
-- `registry_login_password`
 
 Example:
 
