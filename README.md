@@ -45,7 +45,7 @@ Required arguments:
 
 Optional arguments:
 - `location` - if not given, West Europe is used
-- `subnet` - if not given, the first `VNET` subnet without delegations is used
+- `subnet` - if not given, the first `vnet` subnet without delegations is used
 - `env_variables`
 - `env_secrets`
 - `cpus`
@@ -77,9 +77,15 @@ Required arguments:
 - `aci`
 - `creds`
 
-Optional_arguments:
+Optional arguments:
 - `vnet` - if given, the subnet `aci` uses is recreated after `aci` deletion
 - `subnet` - if given, the explicit subnet is recreated after `aci` deletion
+
+Passing `vnet` or `subnet` makes delete much slower as the subnet is recreated
+to purge the subnet's delegation and effectively mark the subnet as unused.
+
+If you plan to reuse the subnet for another ACI, do not pass these arguments as
+it is not necessary to remove delegation if the subnet is used for ACIs only.
 
 Example:
 

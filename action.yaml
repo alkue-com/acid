@@ -46,7 +46,7 @@ inputs:
     required: true
 outputs:
   subnet:
-    description: 'Subnet name of the subnet that was handled by the action'
+    description: 'Subnet name if it was given or detected by the action'
 
 runs:
   using: 'docker'

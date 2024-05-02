@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy ACI
+      id: deploy
       uses: alkue-com/acid@main
       with:
         action: deploy
@@ -22,11 +23,16 @@ jobs:
         aci: ${{ secrets.ACI }}
         image: ghcr.io/alkue-com/runner:latest
         vnet: ${{ secrets.VNET }}
+        subnet: ${{ secrets.SUBNET }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         env_variables: LABELS=azure,dev NAME=acid
         env_secrets: GH_REPOSITORY=${{ github.repository }} GH_PAT=${{ secrets.GH_PAT }}
 
+    - name: Output subnet ACI was deployed to
+      run: echo ${{ steps.deploy.outputs.subnet }}
+
     - name: Delete ACI
+      id: delete
       uses: alkue-com/acid@main
       with:
         action: delete
@@ -35,3 +41,6 @@ jobs:
         aci: ${{ secrets.ACI }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         vnet: ${{ secrets.VNET }}
+
+    - name: Output subnet ACI was deleted from
+      run: echo ${{ steps.delete.outputs.subnet }}
