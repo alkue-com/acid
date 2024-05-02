@@ -49,7 +49,7 @@ Optional arguments:
 - `cpus`
 - `memory_gbs`
 - `restart_policy` (Always, Never, OnFailure, defaults to OnFailure)
-- `ports` (Space-separated list of ports to open, defaults to none)
+- `ports` (Space-separated list of ports to open, defaults to 80)
 - `assign_identity` (Set managed identity of ACI, defaults to system-assigned)
 - `scope` (Add scope for that managed identity)
 - `role` (Assign role for that scope, defaults to Contributor)
