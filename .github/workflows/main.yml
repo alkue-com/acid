@@ -23,10 +23,10 @@ jobs:
         location: ${{ secrets.LOCATION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
-        image: ghcr.io/alkue-com/runner:latest
+        image: docker.io/hello-world:latest
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
-        env_variables: LABELS=azure,dev NAME=🫠
+        env_variables: LABELS=azure,🫠 NAME=hello
         env_secrets: REPOSITORY=${{ github.repository }}
 
     - name: Output subnet ACI was deployed to
@@ -40,7 +40,6 @@ jobs:
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Output subnet ACI was deleted from
       run: echo ${{ steps.delete.outputs.subnet }}

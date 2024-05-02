@@ -7,27 +7,19 @@ Purpose:
 - Container gets only private IP thus only Linux workloads are supported by ACI.
 - A resource group, a virtual network and an unused subnet must already exist.
 
-Uses Azure CLI container image, login with OpenID Connect is not supported.
-
 ## Setup
-
-Create a service principal in Azure:
-
-    az ad sp create-for-rbac \
-      --name "alkue-com-acid" \
-      --role contributor \
-      --scopes /subscriptions/{subscription_id}/resourceGroups/{rg_name} \
-      --json-auth
 
 In the target repository, add the following as GitHub Actions secrets:
 
-- `AZURE_CREDENTIALS` (the response JSON object from the `az` command above)
 - `SUBSCRIPTION` (name, must exist)
 - `LOCATION` (e.g. `westeurope`)
 - `RG` (name, must exist)
 - `ACI` (name)
 - `VNET` (name, must exist)
 - `SUBNET` (name, must exist)
+
+Use [azure/login](https://github.com/Azure/login) action in your pipeline
+to login to Azure your preferred way before using this action.
 
 ## Inputs
 
@@ -43,7 +35,6 @@ Required arguments:
 - `image`
 - `vnet`
 - `subnet`
-- `creds`
 
 Optional arguments:
 
@@ -66,7 +57,6 @@ with:
   image: fqdn/repository:tag
   vnet: ${{ secrets.VNET }}
   subnet: ${{ secrets.SUBNET }}
-  creds: $${ secrets.AZURE_CREDENTIALS }}
 ```
 
 ### Delete
@@ -77,7 +67,6 @@ Required arguments:
 - `subscription`
 - `rg`
 - `aci`
-- `creds`
 
 Example:
 
@@ -88,7 +77,6 @@ with:
   subscription: ${{ secrets.SUBSCRIPTION }}
   rg: ${{ secrets.RG }}
   aci: ${{ secrets.ACI }}
-  creds: $${ secrets.AZURE_CREDENTIALS }}
 ```
 
 ## Outputs
@@ -130,3 +118,9 @@ Example:
     - name: Output subnet ACI was deleted from
       run: echo ${{ steps.delete.outputs.subnet }}
 ```
+
+## TODO
+
+- public networking
+- cleanup changelog
+- publish marketplace
