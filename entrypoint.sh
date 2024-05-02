@@ -86,7 +86,7 @@ deploy() {
     --vnet "$vnet" \
     --subnet "$subnet"
 
-  echo "subnet=$subnet" >>"$GITHUB_OUTPUTS"
+  echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
 
 delete() {
@@ -116,7 +116,7 @@ delete() {
       --subscription "$subscription" \
       --resource-group "$rg"
 
-    echo "subnet=$subnet" >>"$GITHUB_OUTPUTS"
+    echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
   fi
 }
 
