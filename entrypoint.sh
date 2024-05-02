@@ -12,7 +12,6 @@ aci="$INPUT_ACI"
 image="$INPUT_IMAGE"
 vnet="$INPUT_VNET"
 subnet="$INPUT_SUBNET"
-creds="$INPUT_CREDS"
 env_variables="$INPUT_ENV_VARIABLES"
 env_secrets="$INPUT_ENV_SECRETS"
 cpus="$INPUT_CPUS"
@@ -27,22 +26,6 @@ _get_used_subnet() {
     --subscription "$subscription" \
     --resource-group "$rg" \
     --query 'subnetIds[0].id' | jq -r | rev | cut -d '/' -f 1 | rev
-}
-
-login() {
-  echo "acid: Logging in ------------------------------------------------------"
-  if [ -z "$creds" ]; then
-    echo "Error: Requires creds"
-    exit 1
-  fi
-
-  username="$(echo "$creds" | jq -r .clientId)"
-  password="$(echo "$creds" | jq -r .clientSecret)"
-  tenant="$(echo "$creds" | jq -r .tenantId)"
-  az login --service-principal \
-    --username="$username" \
-    --password="$password" \
-    --tenant="$tenant"
 }
 
 deploy() {
@@ -91,11 +74,6 @@ delete() {
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
 
-logout() {
-  echo "acid: Logging out -----------------------------------------------------"
-  az logout
-}
-
 ### main #######################################################################
 
 if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
@@ -103,9 +81,4 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
   exit 1
 fi
 
-login
-# shellcheck disable=SC2154  # status is assigned from failing command
-trap 'status=$?; logout; exit $status' INT TERM QUIT ERR
-
 "$action"
-logout

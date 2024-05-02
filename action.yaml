@@ -49,6 +49,11 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: Login to Azure
+      uses: azure/login@v2.1.0
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Set GitHub Path
       run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
       shell: bash
@@ -67,7 +72,6 @@ runs:
         INPUT_IMAGE: ${{ inputs.image }}
         INPUT_VNET: ${{ inputs.vnet }}
         INPUT_SUBNET: ${{ inputs.subnet }}
-        INPUT_CREDS: ${{ inputs.creds }}
         INPUT_ENV_VARIABLES: ${{ inputs.env_variables }}
         INPUT_ENV_SECRETS: ${{ inputs.env_secrets }}
         INPUT_CPUS: ${{ inputs.cpus }}
