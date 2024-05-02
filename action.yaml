@@ -47,8 +47,26 @@ outputs:
     description: 'Subnet name where ACI was deployed to or deleted from'
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
+  steps:
+    - name: Run entrypoint.sh
+      run: entrypoint.sh
+      shell: bash
+      env:
+        INPUT_ACTION: ${{ inputs.action }}
+        INPUT_LOCATION: ${{ inputs.location }}
+        INPUT_SUBSCRIPTION: ${{ inputs.subscription }}
+        INPUT_RG: ${{ inputs.rg }}
+        INPUT_ACI: ${{ inputs.aci }}
+        INPUT_IMAGE: ${{ inputs.image }}
+        INPUT_VNET: ${{ inputs.vnet }}
+        INPUT_SUBNET: ${{ inputs.subnet }}
+        INPUT_CREDS: ${{ inputs.creds }}
+        INPUT_ENV_VARIABLES: ${{ inputs.env_variables }}
+        INPUT_ENV_SECRETS: ${{ inputs.env_secrets }}
+        INPUT_CPUS: ${{ inputs.cpus }}
+        INPUT_MEMORY_GBS: ${{ inputs.memory_gbs }}
+        INPUT_RESTART_POLICY: ${{ inputs.restart_policy }}
 
 branding:
     icon: 'cloud'
