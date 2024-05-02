@@ -49,18 +49,7 @@ outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.action }}
-    - ${{ inputs.subscription }}
-    - ${{ inputs.location }}
-    - ${{ inputs.rg }}
-    - ${{ inputs.aci }}
-    - ${{ inputs.image }}
-    - ${{ inputs.vnet }}
-    - ${{ inputs.subnet }}
-    - ${{ inputs.creds }}
-    - ${{ inputs.env_variables }}
-    - ${{ inputs.env_secrets }}
-    - ${{ inputs.cpus }}
-    - ${{ inputs.memory_gbs }}
-    - ${{ inputs.restart_policy }}
+
+branding:
+    icon: cloud
+    color: yellow
