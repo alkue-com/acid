@@ -40,17 +40,13 @@ get_used_subnet() {
     --query 'subnetIds[0].id' | jq -r | rev | cut -d '/' -f 1 | rev
 }
 
-get_subnet_prefix() {
-  az network vnet subnet show \
-    --name "$subnet" \
-    --vnet-name "$vnet" \
-    --subscription "$subscription" \
-    --resource-group "$rg" \
-    --query 'addressPrefix' | jq -r
-}
-
 login() {
   echo "acid: Logging in ------------------------------------------------------"
+  if [ -z "$creds" ]; then
+    echo "Error: Requires creds"
+    exit 1
+  fi
+
   username="$(echo "$creds" | jq -r .clientId)"
   password="$(echo "$creds" | jq -r .clientSecret)"
   tenant="$(echo "$creds" | jq -r .tenantId)"
@@ -67,7 +63,12 @@ logout() {
 
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
-  [ -z "$subnet" ] && subnet="$(get_unused_subnet)"
+  if [ -z "$subscription" ] || [ -z "$location" ] || [ -z "$rg" ] ||
+    [ -z "$aci" ] || [ -z "$image" ] || [ -z "$vnet" ] || [ -z "$subnet" ]; then
+    echo "Error: Requires subscription, location, rg, aci, image, vnet, subnet."
+    exit 1
+  fi
+
   # eval: not escaping env_variables and env_secrets
   eval az container create \
     --subscription "$subscription" \
@@ -91,33 +92,19 @@ deploy() {
 
 delete() {
   echo "acid: Deleting --------------------------------------------------------"
-
-  if [ -n "$vnet" ] && [ -z "$subnet" ]; then
-    subnet="$(get_used_subnet)"
+  if [ -z "$subscription" ] || [ -z "$rg" ] || [ -z "$aci" ]; then
+    echo "Error: Requires subscription, rg, aci."
+    exit 1
   fi
-  [ -n "$subnet" ] && subnet_prefix="$(get_subnet_prefix)"
+
+  [ -z "$subnet" ] && subnet="$(get_used_subnet)"
 
   az container delete --yes \
     --name "$aci" \
     --subscription "$subscription" \
     --resource-group "$rg"
 
-  if [ -n "$subnet_prefix" ]; then
-    az network vnet subnet delete \
-      --name "$subnet" \
-      --vnet-name "$vnet" \
-      --subscription "$subscription" \
-      --resource-group "$rg"
-
-    az network vnet subnet create \
-      --name "$subnet" \
-      --address-prefixes "$subnet_prefix" \
-      --vnet-name "$vnet" \
-      --subscription "$subscription" \
-      --resource-group "$rg"
-
-    echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
-  fi
+  echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
 
 ### main #######################################################################

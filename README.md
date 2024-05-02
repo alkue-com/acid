@@ -27,8 +27,8 @@ In the target repository, add the following as GitHub Actions secrets:
 - `ACI` (name)
 - `IMAGE` (fqdn/repository:tag, must be publicly available)
 - `VNET` (name, must exist)
-- `SUBNET`
-- `LOCATION`
+- `SUBNET` (name, must exist)
+- `LOCATION` (e.g. `westeurope`)
 
 ## Usage
 
@@ -37,15 +37,15 @@ In the target repository, add the following as GitHub Actions secrets:
 Required arguments:
 - `action`
 - `subscription`
+- `location`
 - `rg`
 - `aci`
 - `image`
 - `vnet`
+- `subnet`
 - `creds`
 
 Optional arguments:
-- `location` - if not given, West Europe is used
-- `subnet` - if not given, the first `vnet` subnet without delegations is used
 - `env_variables`
 - `env_secrets`
 - `cpus`
@@ -64,6 +64,7 @@ with:
   aci: ${{ secrets.ACI }}
   image: ${{ secrets.IMAGE }}
   vnet: ${{ secrets.VNET }}
+  subnet: ${{ secrets.SUBNET }}
   creds: $${ secrets.AZURE_CREDENTIALS }}
 
 ```
@@ -77,16 +78,6 @@ Required arguments:
 - `aci`
 - `creds`
 
-Optional arguments:
-- `vnet` - if given, the subnet `aci` uses is recreated after `aci` deletion
-- `subnet` - if given, the explicit subnet is recreated after `aci` deletion
-
-Passing `vnet` or `subnet` makes delete much slower as the subnet is recreated
-to purge the subnet's delegation and effectively mark the subnet as unused.
-
-If you plan to reuse the subnet for another ACI, do not pass these arguments as
-it is not necessary to remove delegation if the subnet is used for ACIs only.
-
 Example:
 
 ```yaml
@@ -98,8 +89,3 @@ with:
   aci: ${{ secrets.ACI }}
   creds: $${ secrets.AZURE_CREDENTIALS }}
 ```
-
-## TODO
-
-- output subnet
-- `entrypoint.sh`: validate mandatory params (delete does not require all)

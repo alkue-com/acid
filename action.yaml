@@ -4,12 +4,11 @@ inputs:
   action:
     description: 'deploy/delete'
     required: true
-  location:
-    description: 'Azure region'
-    required: true
-    default: 'westeurope'
   subscription:
     description: 'Existing Azure subscription name'
+    required: true
+  location:
+    description: 'Azure region'
     required: true
   rg:
     description: 'Existing Azure resource group name'
@@ -20,51 +19,48 @@ inputs:
   image:
     description: 'Existing Docker image reference (fqdn/repository:tag)'
     required: true
-  env_variables:
-    description: 'Environment variables for container'
-  env_secrets:
-    description: 'Secret environment variables for container'
   vnet:
     description: 'Existing Azure virtual network name'
     required: true
   subnet:
     description: 'Existing Azure virtual network subnet name'
     required: true
+  creds:
+    description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
+    required: true
+  env_variables:
+    description: 'Environment variables for container'
+  env_secrets:
+    description: 'Secret environment variables for container'
   cpus:
     description: 'Number of CPU cores for container'
-    required: true
     default: '1'
   memory_gbs:
     description: 'Memory (in gigabytes) for container'
-    required: true
     default: '1.5'
   restart_policy:
     description: 'Container restart policy'
     default: 'OnFailure'
-  creds:
-    description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
-    required: true
+
 outputs:
   subnet:
-    description: 'Subnet name if it was given or detected by the action'
+    description: 'Subnet name where ACI was deployed or deleted from'
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.action }}
-    - ${{ inputs.gh_repository }}
-    - ${{ inputs.gh_pat }}
-    - ${{ inputs.location }}
     - ${{ inputs.subscription }}
+    - ${{ inputs.location }}
     - ${{ inputs.rg }}
     - ${{ inputs.aci }}
     - ${{ inputs.image }}
-    - ${{ inputs.env_variables }}
-    - ${{ inputs.env_secrets }}
     - ${{ inputs.vnet }}
     - ${{ inputs.subnet }}
-    - ${{ inputs.labels }}
+    - ${{ inputs.creds }}
+    - ${{ inputs.env_variables }}
+    - ${{ inputs.env_secrets }}
     - ${{ inputs.cpus }}
     - ${{ inputs.memory_gbs }}
-    - ${{ inputs.creds }}
+    - ${{ inputs.restart_policy }}

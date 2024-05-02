@@ -19,6 +19,7 @@ jobs:
       with:
         action: deploy
         subscription: ${{ secrets.SUBSCRIPTION }}
+        location: ${{ secrets.LOCATION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
         image: ghcr.io/alkue-com/runner:latest
@@ -40,7 +41,6 @@ jobs:
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        vnet: ${{ secrets.VNET }}
 
     - name: Output subnet ACI was deleted from
       run: echo ${{ steps.delete.outputs.subnet }}
