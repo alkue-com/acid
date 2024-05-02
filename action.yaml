@@ -44,7 +44,7 @@ inputs:
 
 outputs:
   subnet:
-    description: 'Subnet name where ACI was deployed or deleted from'
+    description: 'Subnet name where ACI was deployed to or deleted from'
 
 runs:
   using: 'docker'
