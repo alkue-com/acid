@@ -13,9 +13,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout git repo
-      uses: actions/checkout@v4.1.4
-
     - name: Deploy ACI
       uses: alkue-com/acid@main
       with:
@@ -38,4 +35,5 @@ jobs:
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        vnet: ${{ secrets.VNET }}
         subnet:  ${{ secrets.SUBNET }}

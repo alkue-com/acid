@@ -78,6 +78,7 @@ Required arguments:
 - `creds`
 
 Optional_arguments:
+- `vnet` - if given, the subnet is recreated after ACI has been deleted
 - `subnet` - if given, the subnet is recreated after ACI has been deleted
 
 Example:
