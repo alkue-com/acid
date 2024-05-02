@@ -20,21 +20,22 @@ Create a service principal in Azure:
       --json-auth
 
 In the target repository, add the following as GitHub Actions secrets:
+
 - `AZURE_CREDENTIALS` (the response JSON object from the `az` command above)
 - `GH_PAT` (must have administrator read/write rights to the repository)
 - `SUBSCRIPTION` (name, must exist)
+- `LOCATION` (e.g. `westeurope`)
 - `RG` (name, must exist)
 - `ACI` (name)
-- `IMAGE` (fqdn/repository:tag, must be publicly available)
 - `VNET` (name, must exist)
 - `SUBNET` (name, must exist)
-- `LOCATION` (e.g. `westeurope`)
 
-## Usage
+## Inputs
 
 ### Deploy
 
 Required arguments:
+
 - `action`
 - `subscription`
 - `location`
@@ -46,6 +47,7 @@ Required arguments:
 - `creds`
 
 Optional arguments:
+
 - `env_variables`
 - `env_secrets`
 - `cpus`
@@ -62,16 +64,16 @@ with:
   location: ${{ secrets.LOCATION }}
   rg: ${{ secrets.RG }}
   aci: ${{ secrets.ACI }}
-  image: ${{ secrets.IMAGE }}
+  image: fqdn/repository:tag
   vnet: ${{ secrets.VNET }}
   subnet: ${{ secrets.SUBNET }}
   creds: $${ secrets.AZURE_CREDENTIALS }}
-
 ```
 
 ### Delete
 
 Required arguments:
+
 - `action`
 - `subscription`
 - `rg`
@@ -88,4 +90,44 @@ with:
   rg: ${{ secrets.RG }}
   aci: ${{ secrets.ACI }}
   creds: $${ secrets.AZURE_CREDENTIALS }}
+```
+
+## Outputs
+
+Always returned:
+
+- `subnet`: Subnet name where ACI was deployed to or deleted from
+
+### After deploy
+
+Example:
+
+```yaml
+    steps:
+    - name: Deploy ACI
+      id: deploy
+      uses: alkue-com/acid@main
+      with:
+        action: deploy
+        ...
+
+    - name: Output subnet ACI was deployed to
+      run: echo ${{ steps.deploy.outputs.subnet }}
+```
+
+### After delete
+
+Example:
+
+```yaml
+    steps:
+    - name: Delete ACI
+      id: delete
+      uses: alkue-com/acid@main
+      with:
+        action: delete
+        ...
+
+    - name: Output subnet ACI was deleted from
+      run: echo ${{ steps.delete.outputs.subnet }}
 ```
