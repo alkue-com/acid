@@ -32,14 +32,6 @@ get_unused_subnet() {
     --query '[?delegations == `[]`].name | [0]' | jq -r
 }
 
-get_used_subnet() {
-  az container show \
-    --name "$aci" \
-    --subscription "$subscription" \
-    --resource-group "$rg" \
-    --query 'subnetIds[0].id' | jq -r | rev | cut -d '/' -f 1 | rev
-}
-
 get_subnet_prefix() {
   az network vnet subnet show \
     --name "$subnet" \
@@ -89,11 +81,28 @@ deploy() {
 
 delete() {
   echo "acid: Deleting --------------------------------------------------------"
-  #: "${subnet:="$(get_used_subnet)"}"
+
+  [ -n "$subnet" ] && subnet_prefix="$(get_subnet_prefix)"
+
   az container delete --yes \
     --name "$aci" \
     --subscription "$subscription" \
     --resource-group "$rg"
+
+  if [ -n "$subnet_prefix" ]; then
+    az network vnet subnet delete \
+      --name "$subnet" \
+      --vnet-name "$vnet" \
+      --subscription "$subscription" \
+      --resource-group "$rg"
+
+    az network vnet subnet create \
+      --name "$subnet" \
+      --address-prefixes "$subnet_prefix" \
+      --vnet-name "$vnet" \
+      --subscription "$subscription" \
+      --resource-group "$rg"
+  fi
 }
 
 ### main #######################################################################

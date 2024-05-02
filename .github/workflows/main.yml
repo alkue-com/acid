@@ -38,3 +38,4 @@ jobs:
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        subnet:  ${{ secrets.SUBNET }}

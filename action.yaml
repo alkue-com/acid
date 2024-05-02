@@ -1,5 +1,5 @@
 name: 'acid'
-description: 'Azure Container Instances Deploy/Delete.'
+description: 'Azure Container Instances Deployer.'
 inputs:
   action:
     description: 'deploy/delete'
