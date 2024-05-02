@@ -36,4 +36,3 @@ jobs:
         aci: ${{ secrets.ACI }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         vnet: ${{ secrets.VNET }}
-        subnet:  ${{ secrets.SUBNET }}
