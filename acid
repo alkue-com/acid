@@ -21,7 +21,7 @@ cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
 
-# deploy action extra args
+# any azure cli args
 az_args="$*"
 
 ### functions ##################################################################
@@ -42,23 +42,22 @@ deploy() {
     exit 1
   fi
 
-  # eval: not escaping env_variables and env_secrets
   eval az container create \
     --subscription "$subscription" \
-    --resource-group "$rg" \
     --location "$location" \
-    --sku Standard \
+    --resource-group "$rg" \
     --name "$aci" \
-    --image "$image" \
-    --environment-variables "$env_variables" \
-    --secure-environment-variables "$env_secrets" \
-    --restart-policy "$restart_policy" \
+    --sku Standard \
     --os-type Linux \
-    --cpu "$cpus" \
-    --memory "$memory_gbs" \
+    --image "$image" \
     --ip-address Private \
     --vnet "$vnet" \
     --subnet "$subnet" \
+    --environment-variables "$env_variables" \
+    --secure-environment-variables "$env_secrets" \
+    --cpu "$cpus" \
+    --memory "$memory_gbs" \
+    --restart-policy "$restart_policy" \
     "$az_args"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
@@ -71,12 +70,13 @@ delete() {
     exit 1
   fi
 
-  [ -z "$subnet" ] && subnet="$(_get_used_subnet)"
+  local subnet=
+  subnet="$(_get_used_subnet)"
 
   eval az container delete --yes \
-    --name "$aci" \
     --subscription "$subscription" \
     --resource-group "$rg" \
+    --name "$aci" \
     "$az_args"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
@@ -90,7 +90,7 @@ if [ "$action" != "deploy" ] && [ "$action" != "delete" ]; then
 fi
 
 # shellcheck disable=SC2154  # exits with the status of the failed command
-trap 'ec=$?; echo "acid: az failed"; exit $ec' SIGTERM SIGINT SIGQUIT ERR
+trap 'status=$?; echo "acid: az command failed"; exit $status' ERR
 
 "$action"
 
