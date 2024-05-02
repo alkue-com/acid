@@ -73,7 +73,7 @@ delete() {
 
   [ -z "$subnet" ] && subnet="$(_get_used_subnet)"
 
-  az container delete --yes \
+  eval az container delete --yes \
     --name "$aci" \
     --subscription "$subscription" \
     --resource-group "$rg" \
