@@ -78,8 +78,8 @@ Required arguments:
 - `creds`
 
 Optional_arguments:
-- `vnet` - if given, the subnet that ACI used is recreated after ACI deletion
-- `subnet` - if given, that particular subnet is recreated over that used by AC
+- `vnet` - if given, the subnet `aci` uses is recreated after `aci` deletion
+- `subnet` - if given, the explicit subnet is recreated after `aci` deletion
 
 Example:
 
@@ -95,4 +95,5 @@ with:
 
 ## TODO
 
+- output subnet
 - `entrypoint.sh`: validate mandatory params (delete does not require all)

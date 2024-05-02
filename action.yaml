@@ -44,6 +44,9 @@ inputs:
   creds:
     description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
     required: true
+outputs:
+  subnet:
+    description: 'Subnet name of the subnet that was handled by the action'
 
 runs:
   using: 'docker'

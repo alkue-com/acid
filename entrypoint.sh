@@ -67,7 +67,7 @@ logout() {
 
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
-  : "${subnet:="$(get_unused_subnet)"}"
+  [ -z "$subnet" ] && subnet="$(get_unused_subnet)"
   # eval: not escaping env_variables and env_secrets
   eval az container create \
     --subscription "$subscription" \
@@ -85,6 +85,8 @@ deploy() {
     --ip-address Private \
     --vnet "$vnet" \
     --subnet "$subnet"
+
+  echo "subnet=$subnet" >>"$GITHUB_OUTPUTS"
 }
 
 delete() {
@@ -113,6 +115,8 @@ delete() {
       --vnet-name "$vnet" \
       --subscription "$subscription" \
       --resource-group "$rg"
+
+    echo "subnet=$subnet" >>"$GITHUB_OUTPUTS"
   fi
 }
 
