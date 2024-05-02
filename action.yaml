@@ -25,9 +25,6 @@ inputs:
   subnet:
     description: 'Existing Azure virtual network subnet name'
     required: true
-  creds:
-    description: 'Azure Service Principal JSON object (= AZURE_CREDENTIALS)'
-    required: true
   env_variables:
     description: 'Environment variables for container'
   env_secrets:
@@ -49,11 +46,6 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Login to Azure
-      uses: azure/login@v2.1.0
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
     - name: Set GitHub Path
       run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
       shell: bash
