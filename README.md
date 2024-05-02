@@ -22,7 +22,6 @@ Create a service principal in Azure:
 In the target repository, add the following as GitHub Actions secrets:
 
 - `AZURE_CREDENTIALS` (the response JSON object from the `az` command above)
-- `GH_PAT` (must have administrator read/write rights to the repository)
 - `SUBSCRIPTION` (name, must exist)
 - `LOCATION` (e.g. `westeurope`)
 - `RG` (name, must exist)

@@ -23,7 +23,7 @@ jobs:
         subnet: ${{ secrets.SUBNET }}
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         env_variables: LABELS=azure,dev NAME=acid
-        env_secrets: GH_REPOSITORY=${{ github.repository }} GH_PAT=${{ secrets.GH_PAT }}
+        env_secrets: REPOSITORY=${{ github.repository }}
 
     - name: Output subnet ACI was deployed to
       run: echo ${{ steps.deploy.outputs.subnet }}
