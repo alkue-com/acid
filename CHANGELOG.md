@@ -1,3 +1,33 @@
+## 1.2.0 (2024-05-02)
+
+### Feat
+
+- Add support for ACI managed identities
+
+### Fix
+
+- args variable name
+- Improve error handling
+- Error handling
+- Error trapping
+- Test az cli args
+- Test az cli args
+- Test az cli args
+- Remove extra args
+- Remove ports
+- Default ports
+- Test using composite action
+- Test using composite action
+- Test using composite action
+- Test using composite action
+- Test using composite action
+- Test using composite action
+- Test using composite action
+
+### Refactor
+
+- Tidy
+
 ## 1.1.0 (2024-05-02)
 
 ### Feat
