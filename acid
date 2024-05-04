@@ -20,6 +20,8 @@ env_secrets="$INPUT_ENV_SECRETS"
 cpus="$INPUT_CPUS"
 memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
+law="$INPUT_LAW"
+law_key="$INPUT_LAW_KEY"
 
 # any azure cli args
 az_args="$*"
@@ -65,6 +67,12 @@ deploy() {
 
   [ -n "$env_secrets" ] && create_command="$create_command \
     --secure-environment-variables $env_secrets"
+
+  [ -n "$law" ] && create_command="$create_command \
+    --log-analytics-workspace $law"
+
+  [ -n "$law_key" ] && create_command="$create_command \
+    --log-analytics-workspace-key $law_key"
 
   [ -n "$az_args" ] && create_command="$create_command $az_args"
 

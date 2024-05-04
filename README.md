@@ -41,7 +41,9 @@ Optional arguments:
 - `env_secrets` - space-separated list (`SUM=${{ secrets.SUM }} ANOTHER=...`)
 - `cpus` - defaults to 1 CPU core
 - `memory_gbs` - defaults to 1.5GB
-- `restart_policy` - defaults to OnFailure
+- `restart_policy` - defaults to Always
+- `law` - existing Log Analytics Workspace name or id
+- `law_key` - Log Analytics Workspace primary or secondary key
 - `az_args` - any Azure CLI arguments (may extend or override previous)
 
 See `az container create --help` for detailed description on arguments.
