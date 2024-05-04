@@ -80,7 +80,11 @@ deploy() {
 
   [ -n "$az_args" ] && create_command="$create_command $az_args"
 
+  set -x
+
   "$create_command"
+
+  set +x
 
   echo "vnet=$vnet subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
