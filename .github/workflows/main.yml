@@ -40,6 +40,7 @@ jobs:
       run: echo ${{ steps.deploy.outputs.subnet }}
 
     - name: Delete ACI
+      if: always()
       id: delete
       uses: alkue-com/acid@main
       with:
@@ -49,4 +50,5 @@ jobs:
         aci: ${{ secrets.ACI }}
 
     - name: Output subnet ACI was deleted from
+      if: always()
       run: echo ${{ steps.delete.outputs.subnet }}

@@ -64,11 +64,7 @@ deploy() {
 
   [ -n "$az_args" ] && create_command="$create_command $az_args"
 
-  set -x
-
   eval "$create_command"
-
-  set -x
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
