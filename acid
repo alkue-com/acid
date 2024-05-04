@@ -42,23 +42,29 @@ deploy() {
     exit 1
   fi
 
-  eval az container create \
-    --subscription "$subscription" \
-    --location "$location" \
-    --resource-group "$rg" \
-    --name "$aci" \
+  local create_command="az container create --subscription $subscription \
+    --location $location \
+    --resource-group $rg \
+    --name $aci \
     --sku Standard \
     --os-type Linux \
-    --image "$image" \
+    --image $image \
     --ip-address Private \
-    --vnet "$vnet" \
-    --subnet "$subnet" \
-    --environment-variables "$env_variables" \
-    --secure-environment-variables "$env_secrets" \
-    --cpu "$cpus" \
-    --memory "$memory_gbs" \
-    --restart-policy "$restart_policy" \
-    "$az_args"
+    --vnet $vnet \
+    --subnet $subnet
+    --cpu $cpus \
+    --memory $memory_gbs \
+    --restart-policy $restart_policy"
+
+  [ -n "$env_variables" ] && create_command="$create_command \
+    --environment-variables $env_variables"
+
+  [ -n "$env_secrets" ] && create_command="$create_command \
+    --secure-environment-variables $env_secrets"
+
+  [ -n "$az_args" ] && create_command="$create_command $az_args"
+
+  eval "$create_command"
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }

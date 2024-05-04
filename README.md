@@ -11,7 +11,7 @@ GitHub runner must have `bash` and `az` installed (GitHub hosted runners do).
 In the GitHub repository, create the following as GitHub Actions secrets:
 
 - `SUBSCRIPTION` - name or id, subscription must exist
-- `LOCATION` - e.g. `westeurope`
+- `LOCATION` - e.g. `westeurope`, get name from `az account list-locations`
 - `RG` - name, resource group must exist
 - `ACI` - name, target to deploy/delete
 - `VNET` - name or id - created if does not exist, use `az_args` to set CIDR
@@ -37,8 +37,8 @@ Required arguments:
 
 Optional arguments:
 
-- `env_variables` - space-separated list (`ENV1=VALUE1 ENV2=VALUE2`)
-- `env_secrets` - space-separated list (`KEY1=${{ secrets.KEY1 }} KEY2=...`)
+- `env_variables` - space-separated list (`NAME=${{ vars.NAME }} VAR=value`)
+- `env_secrets` - space-separated list (`SUM=${{ secrets.SUM }} ANOTHER=...`)
 - `cpus` - defaults to 1 CPU core
 - `memory_gbs` - defaults to 1.5GB
 - `restart_policy` - defaults to OnFailure
