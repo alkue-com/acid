@@ -65,8 +65,8 @@ runs:
       shell: bash
       env:
         INPUT_ACTION: ${{ inputs.action }}
-        INPUT_LOCATION: ${{ inputs.location }}
         INPUT_SUBSCRIPTION: ${{ inputs.subscription }}
+        INPUT_LOCATION: ${{ inputs.location }}
         INPUT_RG: ${{ inputs.rg }}
         INPUT_ACI: ${{ inputs.aci }}
         INPUT_IMAGE: ${{ inputs.image }}
@@ -77,6 +77,9 @@ runs:
         INPUT_CPUS: ${{ inputs.cpus }}
         INPUT_MEMORY_GBS: ${{ inputs.memory_gbs }}
         INPUT_RESTART_POLICY: ${{ inputs.restart_policy }}
+        INPUT_LAW: ${{ inputs.law }}
+        INPUT_LAW_KEY: ${{ inputs.law_key }}
+        INPUT_CMD: ${{ inputs.cmd }}
 
 branding:
     icon: 'cloud'

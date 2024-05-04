@@ -6,8 +6,8 @@ set -Eo pipefail
 
 # required
 action="$INPUT_ACTION"
-location="$INPUT_LOCATION"
 subscription="$INPUT_SUBSCRIPTION"
+location="$INPUT_LOCATION"
 rg="$INPUT_RG"
 aci="$INPUT_ACI"
 image="$INPUT_IMAGE"
