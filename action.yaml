@@ -40,6 +40,8 @@ inputs:
     description: 'Existing Log Analytics workspace name or id.'
   law_key:
     description: 'The Log Analytics workspace key.'
+  cmd:
+    description: 'Command to run in container, overrides Dockerfile CMD.'
   az_args:
     description: 'Azure CLI arguments, possibly overriding previous arguments.'
 
