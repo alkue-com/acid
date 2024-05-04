@@ -1,3 +1,24 @@
+## 1.3.0 (2024-05-04)
+
+### Feat
+
+- **acid**: Enhance logging during deployment
+- **acid**: Add command line option for deployment
+
+### Fix
+
+- **acid**: Ensure proper command execution in script
+- **acid**: Ensure command execution via eval
+- **acid**: Ensure proper command execution in script
+- Restart policy
+- Make vnet and subnet optional
+- Optional args
+- Optional args
+
+### Refactor
+
+- **acid**: Simplify command execution in deploy
+
 ## 1.2.0 (2024-05-02)
 
 ### Feat
