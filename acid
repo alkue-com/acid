@@ -51,7 +51,7 @@ deploy() {
     --image $image \
     --ip-address Private \
     --vnet $vnet \
-    --subnet $subnet
+    --subnet $subnet \
     --cpu $cpus \
     --memory $memory_gbs \
     --restart-policy $restart_policy"
@@ -64,7 +64,11 @@ deploy() {
 
   [ -n "$az_args" ] && create_command="$create_command $az_args"
 
+  set -x
+
   eval "$create_command"
+
+  set -x
 
   echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
