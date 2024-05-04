@@ -21,10 +21,8 @@ inputs:
     required: true
   vnet:
     description: 'Existing Azure virtual network name or id.'
-    required: true
   subnet:
-    description: 'Existing Azure virtual network subnet name or id.'
-    required: true
+    description: 'Existing Azure subnet name or id.'
   env_variables:
     description: 'Environment variables for container. Space-separated list.'
   env_secrets:

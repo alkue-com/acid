@@ -32,11 +32,11 @@ Required arguments:
 - `rg`
 - `aci`
 - `image`
-- `vnet`
-- `subnet`
 
 Optional arguments:
 
+- `vnet`
+- `subnet`
 - `env_variables` - space-separated list (`NAME=${{ vars.NAME }} VAR=value`)
 - `env_secrets` - space-separated list (`SUM=${{ secrets.SUM }} ANOTHER=...`)
 - `cpus` - defaults to 1 CPU core
@@ -52,13 +52,13 @@ Example:
 uses: alkue-com/acid@1.2.0
 with:
   action: deploy
-  subscription: ${{ secrets.SUBSCRIPTION }}
-  location: ${{ secrets.LOCATION }}
-  rg: ${{ secrets.RG }}
-  aci: ${{ secrets.ACI }}
+  subscription: ${{ vars.SUBSCRIPTION }}
+  location: ${{ vars.LOCATION }}
+  rg: ${{ vars.RG }}
+  aci: ${{ vars.ACI }}
   image: fqdn/repository:tag
-  vnet: ${{ secrets.VNET }}
-  subnet: ${{ secrets.SUBNET }}
+  vnet: ${{ vars.VNET }}
+  subnet: ${{ vars.SUBNET }}
 ```
 
 ### Delete
@@ -82,15 +82,16 @@ Example:
 uses: alkue-com/acid@1.2.0
 with:
   action: delete
-  subscription: ${{ secrets.SUBSCRIPTION }}
-  rg: ${{ secrets.RG }}
-  aci: ${{ secrets.ACI }}
+  subscription: ${{ vars.SUBSCRIPTION }}
+  rg: ${{ vars.RG }}
+  aci: ${{ vars.ACI }}
 ```
 
 ## Outputs
 
 Always returned:
 
+- `vnet`: Virtual network name where ACI was deployed to or deleted from
 - `subnet`: Subnet name where ACI was deployed to or deleted from
 
 ### After deploy

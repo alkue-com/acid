@@ -36,8 +36,8 @@ jobs:
         env_secrets: REPOSITORY=${{ github.repository }}
         az_args: --ports 80 8080 --assign-identity
 
-    - name: Output subnet ACI was deployed to
-      run: echo ${{ steps.deploy.outputs.subnet }}
+    - name: Output vnet and subnet ACI was deployed to
+      run: echo ${{ steps.deploy.outputs.vnet }} ${{ steps.deploy.outputs.subnet }}
 
     - name: Delete ACI
       if: always()
@@ -49,6 +49,6 @@ jobs:
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
 
-    - name: Output subnet ACI was deleted from
+    - name: Output vnet and subnet ACI was deleted from
       if: always()
-      run: echo ${{ steps.delete.outputs.subnet }}
+      run: echo ${{ steps.deploy.outputs.vnet }} ${{ steps.delete.outputs.subnet }}

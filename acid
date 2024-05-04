@@ -11,10 +11,10 @@ subscription="$INPUT_SUBSCRIPTION"
 rg="$INPUT_RG"
 aci="$INPUT_ACI"
 image="$INPUT_IMAGE"
-vnet="$INPUT_VNET"
-subnet="$INPUT_SUBNET"
 
 # optional
+vnet="$INPUT_VNET"
+subnet="$INPUT_SUBNET"
 env_variables="$INPUT_ENV_VARIABLES"
 env_secrets="$INPUT_ENV_SECRETS"
 cpus="$INPUT_CPUS"
@@ -37,8 +37,8 @@ _get_used_subnet() {
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
   if [ -z "$subscription" ] || [ -z "$location" ] || [ -z "$rg" ] ||
-    [ -z "$aci" ] || [ -z "$image" ] || [ -z "$vnet" ] || [ -z "$subnet" ]; then
-    echo "Error: Requires subscription, location, rg, aci, image, vnet, subnet."
+    [ -z "$aci" ] || [ -z "$image" ]; then
+    echo "Error: Requires subscription, location, rg, aci and image."
     exit 1
   fi
 
@@ -50,11 +50,15 @@ deploy() {
     --os-type Linux \
     --image $image \
     --ip-address Private \
-    --vnet $vnet \
-    --subnet $subnet \
     --cpu $cpus \
     --memory $memory_gbs \
     --restart-policy $restart_policy"
+
+  [ -n "$vnet" ] && create_command="$create_command \
+    --vnet $vnet"
+
+  [ -n "$subnet" ] && create_command="$create_command \
+    --subnet $subnet"
 
   [ -n "$env_variables" ] && create_command="$create_command \
     --environment-variables $env_variables"
@@ -66,7 +70,7 @@ deploy() {
 
   eval "$create_command"
 
-  echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
+  echo "vnet=$vnet subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
 
 delete() {
