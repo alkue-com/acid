@@ -44,6 +44,7 @@ Optional arguments:
 - `restart_policy` - defaults to Always
 - `law` - existing Log Analytics Workspace name or id
 - `law_key` - Log Analytics Workspace primary or secondary key
+- `cmd` - Command to run in container (`CMD`), not double quoted
 - `az_args` - any Azure CLI arguments (may extend or override previous)
 
 See `az container create --help` for detailed description on arguments.
