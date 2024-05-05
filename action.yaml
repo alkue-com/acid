@@ -7,11 +7,11 @@ inputs:
   subscription:
     description: 'Existing Azure subscription name or id.'
     required: true
-  location:
-    description: 'Azure region (e.g. westeurope).'
   rg:
     description: 'Existing Azure resource group name.'
     required: true
+  location:
+    description: 'Azure region.'
   aci:
     description: 'Name of the Azure Container Instances to create.'
   image:
@@ -63,8 +63,8 @@ runs:
       env:
         INPUT_ACTION: ${{ inputs.action }}
         INPUT_SUBSCRIPTION: ${{ inputs.subscription }}
-        INPUT_LOCATION: ${{ inputs.location }}
         INPUT_RG: ${{ inputs.rg }}
+        INPUT_LOCATION: ${{ inputs.location }}
         INPUT_ACI: ${{ inputs.aci }}
         INPUT_IMAGE: ${{ inputs.image }}
         INPUT_VNET: ${{ inputs.vnet }}

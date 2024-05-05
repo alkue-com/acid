@@ -49,6 +49,15 @@ deploy() {
   local create_command="az container create --subscription $subscription \
     --resource-group $rg"
 
+  [ -n "$location" ] && create_command="$create_command \
+    --location $location"
+
+  [ -n "$aci" ] && create_command="$create_command \
+    --name $aci"
+
+  [ -n "$image" ] && create_command="$create_command \
+    --image $image"
+
   [ -n "$vnet" ] && create_command="$create_command \
     --vnet $vnet"
 
@@ -60,6 +69,15 @@ deploy() {
 
   [ -n "$env_secrets" ] && create_command="$create_command \
     --secure-environment-variables $env_secrets"
+
+  [ -n "$cpus" ] && create_command="$create_command \
+    --cpu $cpus"
+
+  [ -n "$memory_gbs" ] && create_command="$create_command \
+    --memory $memory_gbs"
+
+  [ -n "$restart_policy" ] && create_command="$create_command \
+    --restart-policy $restart_policy"
 
   [ -n "$law" ] && create_command="$create_command \
     --log-analytics-workspace $law"

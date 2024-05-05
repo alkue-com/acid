@@ -20,7 +20,7 @@ properties:
       resources:
         requests:
           cpu: 1.0
-          memoryInGB: 1.5
+          memoryInGB: 1.0
   - name: hello
     properties:
       image: mcr.microsoft.com/azuredocs/aci-helloworld
@@ -32,8 +32,8 @@ properties:
         value: 5000
       resources:
         requests:
-          memoryInGB: 1.0
           cpu: 1.0
+          memoryInGB: 1.0
   ipAddress:
     ports:
     - port: 80
