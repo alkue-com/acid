@@ -34,10 +34,7 @@ jobs:
         subnet: ${{ secrets.SUBNET }}
         env_variables: LABELS=azure,acid NAME=nginx
         env_secrets: REPOSITORY=${{ github.repository }}
-        az_args: --ports 80 8080 --assign-identity
-
-    - name: Output vnet and subnet ACI was deployed to
-      run: echo ${{ steps.deploy.outputs.vnet }} ${{ steps.deploy.outputs.subnet }}
+        az_args: --ports 80 --assign-identity
 
     - name: Delete ACI
       if: always()
@@ -48,7 +45,3 @@ jobs:
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
-
-    - name: Output vnet and subnet ACI was deleted from
-      if: always()
-      run: echo ${{ steps.deploy.outputs.vnet }} ${{ steps.delete.outputs.subnet }}

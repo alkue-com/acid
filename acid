@@ -30,14 +30,6 @@ az_args="$*"
 
 ### functions ##################################################################
 
-_get_used_subnet() {
-  az container show \
-    --name "$aci" \
-    --subscription "$subscription" \
-    --resource-group "$rg" \
-    --query 'subnetIds[0].id' | jq -r | rev | cut -d '/' -f 1 | rev
-}
-
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
   if [ -z "$subscription" ] || [ -z "$rg" ]; then
@@ -93,8 +85,6 @@ deploy() {
   [ -n "$az_args" ] && create_command="$create_command $az_args"
 
   eval "$create_command"
-
-  echo "vnet=$vnet subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
 
 delete() {
@@ -104,16 +94,11 @@ delete() {
     exit 1
   fi
 
-  local subnet=
-  subnet="$(_get_used_subnet)"
-
   eval az container delete --yes \
     --subscription "$subscription" \
     --resource-group "$rg" \
     --name "$aci" \
     "$az_args"
-
-  echo "subnet=$subnet" >>"$GITHUB_OUTPUT"
 }
 
 ### main #######################################################################

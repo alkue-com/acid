@@ -41,12 +41,6 @@ inputs:
   az_args:
     description: 'Azure CLI arguments, possibly overriding previous arguments.'
 
-outputs:
-  vnet:
-    description: 'Virtual network name where ACI was deployed to/deleted from'
-  subnet:
-    description: 'Subnet name where ACI was deployed to/deleted from'
-
 runs:
   using: 'composite'
   steps:
