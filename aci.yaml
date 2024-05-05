@@ -1,6 +1,5 @@
 additional_properties: {}
 apiVersion: '2023-05-01'
-extended_location: null
 identity:
   type: SystemAssigned
 location: westeurope
@@ -9,14 +8,11 @@ properties:
   containers:
   - name: acid-dev
     properties:
-      configMap:
-        keyValuePairs: {}
       environmentVariables:
       - name: LABELS
         value: azure,acid
       - name: NAME
         value: hello
-      - name: REPOSITORY
       image: docker.io/nginx:latest
       ports:
       - port: 80
@@ -27,17 +23,13 @@ properties:
         requests:
           cpu: 1.0
           memoryInGB: 1.5
-  initContainers: []
   ipAddress:
-    ip: 172.16.4.228
     ports:
     - port: 80
       protocol: TCP
     - port: 8080
       protocol: TCP
     type: Private
-  isCreatedFromStandbyPool: false
-  isCustomProvisioningTimeout: false
   osType: Linux
   restartPolicy: Always
   sku: Standard
