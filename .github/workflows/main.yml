@@ -31,4 +31,4 @@ jobs:
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
         file: aci.yaml
-        env_variables: LABELS=acid NAME=nginx FILE=aci.yaml
+        env_secrets: LABELS=acid NAME=nginx FILE=aci.yaml
