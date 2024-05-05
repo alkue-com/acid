@@ -39,7 +39,6 @@ properties:
   isCreatedFromStandbyPool: false
   isCustomProvisioningTimeout: false
   osType: Linux
-  provisioningTimeoutInSeconds: 1800
   restartPolicy: Always
   sku: Standard
   subnetIds:
