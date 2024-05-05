@@ -11,7 +11,7 @@ inputs:
     description: 'Existing Azure resource group name.'
     required: true
   file:
-    description: 'Azure Container Instances container group yaml file.'
+    description: 'Container group yaml file. Overrides all optional arguments.'
   location:
     description: 'Azure region.'
   aci:

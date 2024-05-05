@@ -13,9 +13,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout git repo
-      uses: actions/checkout@v4.1.4
-
     - name: Login to Azure
       uses: azure/login@v2
       with:
@@ -29,6 +26,29 @@ jobs:
       with:
         action: deploy
         subscription: ${{ secrets.SUBSCRIPTION }}
+        location: ${{ secrets.LOCATION }}
         rg: ${{ secrets.RG }}
-        file: aci.yaml
-        env_secrets: LABELS=acid NAME=nginx FILE=aci.yaml
+        aci: ${{ secrets.ACI }}
+        image: docker.io/nginx:latest
+        vnet: ${{ secrets.VNET }}
+        subnet: ${{ secrets.SUBNET }}
+        env_variables: LABELS=azure,acid NAME=nginx
+        env_secrets: REPOSITORY=${{ github.repository }}
+        az_args: --ports 80 8080 --assign-identity
+
+    - name: Output vnet and subnet ACI was deployed to
+      run: echo ${{ steps.deploy.outputs.vnet }} ${{ steps.deploy.outputs.subnet }}
+
+    - name: Delete ACI
+      if: always()
+      id: delete
+      uses: alkue-com/acid@main
+      with:
+        action: delete
+        subscription: ${{ secrets.SUBSCRIPTION }}
+        rg: ${{ secrets.RG }}
+        aci: ${{ secrets.ACI }}
+
+    - name: Output vnet and subnet ACI was deleted from
+      if: always()
+      run: echo ${{ steps.deploy.outputs.vnet }} ${{ steps.delete.outputs.subnet }}

@@ -12,10 +12,9 @@ properties:
       ports:
       - port: 80
         protocol: TCP
-      secureEnvironmentVariables: null
       environmentVariables:
       - name: LABELS
-        value: acid
+        value: azure,acid
       - name: NAME
         value: nginx
       resources:
@@ -30,5 +29,3 @@ properties:
   osType: Linux
   restartPolicy: Always
   sku: Standard
-  subnetIds:
-  - id: /subscriptions/467955c7-dfde-486f-a078-cecf5b906cfb/resourceGroups/acid-dev/providers/Microsoft.Network/virtualNetworks/acid-dev/subnets/app8

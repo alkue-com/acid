@@ -8,15 +8,6 @@ GitHub runner must have `bash` and `az` installed (GitHub hosted runners do).
 
 ## Setup
 
-In the GitHub repository, create the following as GitHub Actions secrets:
-
-- `SUBSCRIPTION` - name or id, subscription must exist
-- `LOCATION` - e.g. `westeurope`, get name from `az account list-locations`
-- `RG` - name, resource group must exist
-- `ACI` - name, target to deploy/delete
-- `VNET` - name or id - created if does not exist, use `az_args` to set CIDR
-- `SUBNET` - name or id - created if does not exist, use `az_args` to set CIDR
-
 Use [azure/login](https://github.com/Azure/login) action in pipeline to login
 to Azure before using this action.
 
@@ -27,16 +18,17 @@ to Azure before using this action.
 Required arguments:
 
 - `action: deploy`
-- `subscription`
-- `location`
-- `rg`
-- `aci`
-- `image`
+- `subscription` - name, resource group must exist
+- `rg` - name or id, subscription must exist
 
 Optional arguments:
 
-- `vnet`
-- `subnet`
+- `file` - Container group yaml file. Overrides all the optional arguments.
+- `location` - e.g. `westeurope`, get name from `az account list-locations`
+- `aci`- name, target to deploy/delete
+- `image` - fqdn/repository:tag
+- `vnet`- name or id - created if does not exist, use `az_args` to set CIDR
+- `subnet` - name or id - created if does not exist, use `az_args` to set CIDR
 - `env_variables` - space-separated list (`NAME=${{ vars.NAME }} VAR=value`)
 - `env_secrets` - space-separated list (`SUM=${{ secrets.SUM }} ANOTHER=...`)
 - `cpus` - defaults to 1 CPU core
@@ -45,7 +37,7 @@ Optional arguments:
 - `law` - existing Log Analytics Workspace name or id
 - `law_key` - Log Analytics Workspace primary or secondary key
 - `cmd` - Command to run in container. String. Overrides Dockerfile `CMD`.
-- `az_args` - any Azure CLI arguments (may extend or override previous)
+- `az_args` - Azure CLI arguments. May extend or override previous arguments.
 
 See `az container create --help` for detailed description on arguments.
 
