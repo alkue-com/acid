@@ -39,9 +39,8 @@ _get_used_subnet() {
 
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
-  if [ -z "$subscription" ] || [ -z "$location" ] || [ -z "$rg" ] ||
-    [ -z "$aci" ] || [ -z "$image" ]; then
-    echo "Error: Requires subscription, location, rg, aci and image."
+  if [ -z "$subscription" ] || [ -z "$rg" ]; then
+    echo "Error: Requires subscription and rg."
     exit 1
   fi
 
