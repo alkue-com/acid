@@ -9,16 +9,13 @@ inputs:
     required: true
   location:
     description: 'Azure region (e.g. westeurope).'
-    required: true
   rg:
     description: 'Existing Azure resource group name.'
     required: true
   aci:
     description: 'Name of the Azure Container Instances to create.'
-    required: true
   image:
     description: 'Existing Docker image reference (fqdn/repository:tag).'
-    required: true
   vnet:
     description: 'Existing Azure virtual network name or id.'
   subnet:

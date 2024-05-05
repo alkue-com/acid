@@ -26,12 +26,5 @@ jobs:
       with:
         action: deploy
         subscription: ${{ secrets.SUBSCRIPTION }}
-        location: ${{ secrets.LOCATION }}
         rg: ${{ secrets.RG }}
-        aci: ${{ secrets.ACI }}
-        image: docker.io/nginx:latest
-        vnet: ${{ secrets.VNET }}
-        subnet: ${{ secrets.SUBNET }}
-        env_variables: LABELS=azure,acid NAME=hello
-        env_secrets: REPOSITORY=${{ github.repository }}
-        az_args: --ports 80 8080 --assign-identity
+        az_args: --file aci.yaml
