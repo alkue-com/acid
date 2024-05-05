@@ -23,7 +23,7 @@ memory_gbs="$INPUT_MEMORY_GBS"
 restart_policy="$INPUT_RESTART_POLICY"
 law="$INPUT_LAW"
 law_key="$INPUT_LAW_KEY"
-cmd="$INPUT_CMD"
+command="$INPUT_COMMAND"
 
 # any azure cli args
 az_args="$*"
@@ -87,8 +87,8 @@ deploy() {
   [ -n "$law_key" ] && create_command="$create_command \
     --log-analytics-workspace-key $law_key"
 
-  [ -n "$cmd" ] && create_command="$create_command \
-    --command-line \"$cmd\""
+  [ -n "$command" ] && create_command="$create_command \
+    --command-line \"$command\""
 
   [ -n "$az_args" ] && create_command="$create_command $az_args"
 

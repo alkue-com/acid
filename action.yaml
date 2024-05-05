@@ -36,8 +36,8 @@ inputs:
     description: 'Existing Log Analytics workspace name or id.'
   law_key:
     description: 'The Log Analytics workspace key.'
-  cmd:
-    description: 'Command to run in container. String. Overrides Dockerfile CMD.'
+  command:
+    description: 'Command to run. String. Overrides entrypoint and cmd.'
   az_args:
     description: 'Azure CLI arguments, possibly overriding previous arguments.'
 
@@ -76,7 +76,7 @@ runs:
         INPUT_RESTART_POLICY: ${{ inputs.restart_policy }}
         INPUT_LAW: ${{ inputs.law }}
         INPUT_LAW_KEY: ${{ inputs.law_key }}
-        INPUT_CMD: ${{ inputs.cmd }}
+        INPUT_COMMAND: ${{ inputs.command }}
 
 branding:
     icon: 'cloud'

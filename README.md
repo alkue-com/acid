@@ -36,7 +36,7 @@ Optional arguments:
 - `restart_policy` - defaults to Always
 - `law` - existing Log Analytics Workspace name or id
 - `law_key` - Log Analytics Workspace primary or secondary key
-- `cmd` - Command to run in container. String. Overrides Dockerfile `CMD`.
+- `command` - Command to run. String. Overrides Dockerfile `ENTRYPOINT` and `CMD`.
 - `az_args` - Azure CLI arguments. May extend or override previous arguments.
 
 See `az container create --help` for detailed description on arguments.
