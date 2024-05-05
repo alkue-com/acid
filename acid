@@ -41,7 +41,7 @@ _get_used_subnet() {
 deploy() {
   echo "acid: Deploying -------------------------------------------------------"
   if [ -z "$subscription" ] || [ -z "$rg" ]; then
-    echo "Error: Requires subscription and rg."
+    echo "Error: Subscription or rg not given."
     exit 1
   fi
 
@@ -100,7 +100,7 @@ deploy() {
 delete() {
   echo "acid: Deleting --------------------------------------------------------"
   if [ -z "$subscription" ] || [ -z "$rg" ] || [ -z "$aci" ]; then
-    echo "Error: Requires subscription, rg, aci."
+    echo "Error: Subscription, rg or aci not given."
     exit 1
   fi
 
