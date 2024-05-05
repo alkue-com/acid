@@ -7,12 +7,13 @@ set -Eo pipefail
 # required
 action="$INPUT_ACTION"
 subscription="$INPUT_SUBSCRIPTION"
-location="$INPUT_LOCATION"
 rg="$INPUT_RG"
-aci="$INPUT_ACI"
-image="$INPUT_IMAGE"
 
 # optional
+file="$INPUT_FILE"
+location="$INPUT_LOCATION"
+aci="$INPUT_ACI"
+image="$INPUT_IMAGE"
 vnet="$INPUT_VNET"
 subnet="$INPUT_SUBNET"
 env_variables="$INPUT_ENV_VARIABLES"
@@ -46,6 +47,9 @@ deploy() {
 
   local create_command="az container create --subscription $subscription \
     --resource-group $rg"
+
+  [ -n "$file" ] && create_command="$create_command \
+    --file $file"
 
   [ -n "$location" ] && create_command="$create_command \
     --location $location"

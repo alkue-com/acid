@@ -10,6 +10,8 @@ inputs:
   rg:
     description: 'Existing Azure resource group name.'
     required: true
+  file:
+    description: 'Azure Container Instances container group yaml file.'
   location:
     description: 'Azure region.'
   aci:
@@ -64,6 +66,7 @@ runs:
         INPUT_ACTION: ${{ inputs.action }}
         INPUT_SUBSCRIPTION: ${{ inputs.subscription }}
         INPUT_RG: ${{ inputs.rg }}
+        INPUT_FILE: ${{ inputs.file }}
         INPUT_LOCATION: ${{ inputs.location }}
         INPUT_ACI: ${{ inputs.aci }}
         INPUT_IMAGE: ${{ inputs.image }}
