@@ -28,13 +28,10 @@ inputs:
     description: 'Secret variables for container. Space-separated list.'
   cpus:
     description: 'The required number of CPU cores of the container.'
-    default: '1'
   memory_gbs:
     description: 'The required memory of the container in GB.'
-    default: '1.5'
   restart_policy:
     description: 'Container restart policy: Always, Never, OnFailure.'
-    default: 'Always'
   law:
     description: 'Existing Log Analytics workspace name or id.'
   law_key:
