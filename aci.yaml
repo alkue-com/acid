@@ -21,19 +21,6 @@ properties:
         requests:
           cpu: 1.0
           memoryInGB: 1.0
-  - name: hello
-    properties:
-      image: mcr.microsoft.com/azuredocs/aci-helloworld
-      ports:
-      - port: 5000
-        protocol: TCP
-      environmentVariables:
-      - name: PORT
-        value: 5000
-      resources:
-        requests:
-          cpu: 1.0
-          memoryInGB: 1.0
   ipAddress:
     ports:
     - port: 80
