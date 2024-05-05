@@ -12,11 +12,6 @@ properties:
       ports:
       - port: 80
         protocol: TCP
-      environmentVariables:
-      - name: LABELS
-        value: acid
-      - name: NAME
-        value: nginx
       resources:
         requests:
           cpu: 1.0
