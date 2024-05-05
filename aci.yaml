@@ -12,6 +12,7 @@ properties:
       ports:
       - port: 80
         protocol: TCP
+      secureEnvironmentVariables: null
       environmentVariables:
       - name: LABELS
         value: acid
