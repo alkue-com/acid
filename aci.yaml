@@ -1,29 +1,44 @@
 apiVersion: '2023-05-01'
 type: Microsoft.ContainerInstance/containerGroups
-identity:
-  type: SystemAssigned
 location: westeurope
 name: acid-dev
+identity:
+  type: SystemAssigned
 properties:
   containers:
-  - name: acid-dev
+  - name: nginx
     properties:
+      image: docker.io/nginx:latest
+      ports:
+      - port: 80
+        protocol: TCP
       environmentVariables:
       - name: LABELS
         value: acid
       - name: NAME
         value: nginx
-      image: docker.io/nginx:latest
-      ports:
-      - port: 80
-        protocol: TCP
       resources:
         requests:
           cpu: 1.0
           memoryInGB: 1.5
+  - name: hello
+    properties:
+      image: mcr.microsoft.com/azuredocs/aci-helloworld
+      ports:
+      - port: 5000
+        protocol: TCP
+      environmentVariables:
+      - name: PORT
+        value: 5000
+      resources:
+        requests:
+          memoryInGB: 1.0
+          cpu: 1.0
   ipAddress:
     ports:
     - port: 80
+      protocol: TCP
+    - port: 5000
       protocol: TCP
     type: Private
   osType: Linux
