@@ -10,7 +10,7 @@ properties:
     properties:
       environmentVariables:
       - name: LABELS
-        value: azure,acid
+        value: acid
       - name: NAME
         value: nginx
       image: docker.io/nginx:latest
@@ -24,8 +24,6 @@ properties:
   ipAddress:
     ports:
     - port: 80
-      protocol: TCP
-    - port: 8080
       protocol: TCP
     type: Private
   osType: Linux
