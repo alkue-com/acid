@@ -30,4 +30,5 @@ jobs:
         action: deploy
         subscription: ${{ secrets.SUBSCRIPTION }}
         rg: ${{ secrets.RG }}
+        env_variables: LABELS=acid NAME=nginx FILE=aci.yaml
         az_args: --file aci.yaml

@@ -1,5 +1,5 @@
-additional_properties: {}
 apiVersion: '2023-05-01'
+type: Microsoft.ContainerInstance/containerGroups
 identity:
   type: SystemAssigned
 location: westeurope
@@ -12,12 +12,10 @@ properties:
       - name: LABELS
         value: azure,acid
       - name: NAME
-        value: hello
+        value: nginx
       image: docker.io/nginx:latest
       ports:
       - port: 80
-        protocol: TCP
-      - port: 8080
         protocol: TCP
       resources:
         requests:
@@ -35,5 +33,3 @@ properties:
   sku: Standard
   subnetIds:
   - id: /subscriptions/467955c7-dfde-486f-a078-cecf5b906cfb/resourceGroups/acid-dev/providers/Microsoft.Network/virtualNetworks/acid-dev/subnets/app8
-tags: {}
-type: Microsoft.ContainerInstance/containerGroups
