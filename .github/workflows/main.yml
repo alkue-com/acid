@@ -34,7 +34,7 @@ jobs:
         subnet: ${{ secrets.SUBNET }}
         env_variables: LABELS=azure,acid NAME=runner
         env_secrets: REPOSITORY=${{ github.repository }}
-        az_args: --ports 80 --assign-identity
+        az_args: --assign-identity
 
     - name: Delete ACI
       if: always()
