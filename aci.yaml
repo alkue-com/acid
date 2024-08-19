@@ -6,25 +6,19 @@ identity:
   type: SystemAssigned
 properties:
   containers:
-  - name: nginx
+  - name: runner
     properties:
-      image: docker.io/nginx:latest
-      ports:
-      - port: 80
-        protocol: TCP
+      image: ghcr.io/alkue-com/runner:main
       environmentVariables:
       - name: LABELS
         value: azure,acid
       - name: NAME
-        value: nginx
+        value: runner
       resources:
         requests:
           cpu: 1.0
           memoryInGB: 1.0
   ipAddress:
-    ports:
-    - port: 80
-      protocol: TCP
     type: Private
   osType: Linux
   restartPolicy: Always

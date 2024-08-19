@@ -29,10 +29,10 @@ jobs:
         location: ${{ secrets.LOCATION }}
         rg: ${{ secrets.RG }}
         aci: ${{ secrets.ACI }}
-        image: docker.io/nginx:latest
+        image: ghcr.io/alkue-com/runner:main
         vnet: ${{ secrets.VNET }}
         subnet: ${{ secrets.SUBNET }}
-        env_variables: LABELS=azure,acid NAME=nginx
+        env_variables: LABELS=azure,acid NAME=runner
         env_secrets: REPOSITORY=${{ github.repository }}
         az_args: --ports 80 --assign-identity
 
